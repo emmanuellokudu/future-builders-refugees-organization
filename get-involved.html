@@ -1,36 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Get involved | Future Builders Refugee Organization (FBRO)</title>
-  <meta name="description" content="Partner with FBRO: NGOs, refugee-led organizations, CBOs, government institutions, donors, and youth and women groups are welcome to collaborate.">
+  <title>Get Involved & Partner | FBRO Kakuma Refugee Organization</title>
+  <meta name="description" content="Partner with FBRO in Kakuma: NGOs, CBOs, donors, and volunteer groups can collaborate on refugee livelihoods, youth empowerment, and peace initiatives.">
   <meta name="theme-color" content="#0b1f4a">
+
+  <!-- Favicon Set -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Preload primary font -->
+  <link rel="preload" href="assets/fonts/bricolage-grotesque-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Dark Mode Initializer (FOUC Prevention) -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+  <!-- Structured Data: Organization & Breadcrumbs -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    "name": "Future Builders Refugee Organization",
+    "alternateName": "FBRO",
+    "description": "Refugee-led community-based organization in Kakuma Refugee Camp and Kalobeyei Settlement, Kenya.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kakuma Refugee Camp and Kalobeyei Settlement",
+      "addressLocality": "Kakuma",
+      "addressRegion": "Turkana County",
+      "addressCountry": "KE"
+    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+254-703-957-274",
+        "contactType": "operations",
+        "email": "fbrocbo@gmail.com"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Get involved",
+        "item": "get-involved.html"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage (Comprehensive) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who is FBRO and when was it founded?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Future Builders Refugee Organization (FBRO) is a refugee-led community-based organization founded in 2024 in Kakuma Refugee Camp by refugees who wanted to respond directly to unemployment, lack of youth opportunities, poverty, conflict, and limited educational access."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does FBRO operate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FBRO operates across Kakuma Refugee Camp and Kalobeyei Integrated Settlement in Turkana County, northwestern Kenya."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who does FBRO work with in the community?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FBRO works with refugees living in Kakuma, vulnerable host community members, youth and adolescents, women and girls, persons with disabilities, elderly people, and low-income households."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are FBRO's main program areas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FBRO focuses on seven program areas: peacebuilding and social cohesion, livelihood support, youth empowerment and skills development, education and community awareness, environmental conservation, community health and wellbeing, and cultural/community activities."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can organizations or donors partner with FBRO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We welcome collaboration with NGOs, refugee-led organizations, CBOs, government institutions, donors, and youth/women groups. Partners can send an inquiry through our Get Involved form or email fbrocbo@gmail.com."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I contact FBRO leadership directly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can reach Executive Director Prosper Undji Etongano (+254 718 390 124, Prosperun@gmail.com) or Operations Manager Elisha Itongelo (+254 703 957 274, fbrocbo@gmail.com)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are donations eligible for tax exemption?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TODO: Client to confirm formal fiscal sponsorship / tax exemption registration details."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
 
   <div class="topbar">
     <div class="topbar-in">
       <div class="tb-left">
-        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:+254703957274">+254 703 957 274</a></span>
-        <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a></span>
+        <span class="copy-wrapper">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          <a href="tel:+254703957274">+254 703 957 274</a>
+          <button type="button" class="copy-btn" data-copy="+254 703 957 274" aria-label="Copy phone number to clipboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </span>
+        <span class="copy-wrapper">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>
+          <button type="button" class="copy-btn" data-copy="fbrocbo@gmail.com" aria-label="Copy email address to clipboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </span>
       </div>
       <div class="tb-right">Kakuma Refugee Camp &amp; Kalobeyei Settlement, Kenya</div>
     </div>
   </div>
+
   <header class="site-header">
     <div class="bar">
       <a class="brand" href="index.html" aria-label="FBRO home">
-        <img src="assets/img/logo.png" width="453" height="481" alt="FBRO logo">
+        <span class="brand-logo-frame"><img src="assets/img/logo.png" width="453" height="481" alt="FBRO logo"></span>
         <span class="brand-name"><b>FBRO</b><span>Future Builders Refugee Organization</span></span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle navigation menu">
+        <span class="hamburger-box" aria-hidden="true"><span class="hamburger-inner"></span></span>
+        <span class="nav-toggle-text">Menu</span>
+      </button>
       <nav id="nav" class="nav" aria-label="Main">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -38,12 +188,20 @@
         <a href="gallery.html">Gallery</a>
         <a href="get-involved.html" aria-current="page">Get involved</a>
         <a href="contact.html">Contact</a>
+        <button type="button" class="search-trigger-btn" aria-label="Search website" title="Search (/ or Ctrl+K)">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span class="search-kbd-hint" aria-hidden="true">/</span>
+        </button>
+        <button type="button" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Switch color theme">
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
         <a class="btn btn-green" href="get-involved.html">Partner with us</a>
       </nav>
     </div>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="page-head">
       <div class="wrap">
         <h1>Get involved</h1>
@@ -51,7 +209,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section reveal">
       <div class="wrap two-col">
         <div>
           <h2>Partner with FBRO</h2>
@@ -74,7 +232,7 @@
       </div>
     </section>
 
-    <section class="section who">
+    <section class="section who reveal">
       <div class="wrap two-col">
         <div>
           <h2>Take part in our activities</h2>
@@ -84,11 +242,27 @@
           </div>
           <div class="visit">
             <h3>Reach us directly</h3>
-            <p style="margin-top:0.6rem"><a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a><br><a href="tel:+254703957274">+254 703 957 274</a></p>
+            <p style="margin-top:0.6rem">
+              <span class="copy-wrapper">
+                <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>
+                <button type="button" class="copy-btn" data-copy="fbrocbo@gmail.com" aria-label="Copy email address to clipboard">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Copy</span>
+                </button>
+              </span>
+              <br>
+              <span class="copy-wrapper" style="margin-top:4px;">
+                <a href="tel:+254703957274">+254 703 957 274</a>
+                <button type="button" class="copy-btn" data-copy="+254 703 957 274" aria-label="Copy phone number to clipboard">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Copy</span>
+                </button>
+              </span>
+            </p>
           </div>
         </div>
 
-        <form class="form" name="partnership" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <form class="form" name="partnership" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="get-involved.html">
           <input type="hidden" name="form-name" value="partnership">
           <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
           <h3>Send an inquiry</h3>
@@ -115,9 +289,107 @@
         </form>
       </div>
     </section>
+
+    <!-- Comprehensive Expandable FAQ Section (Feature 11) -->
+    <section class="section faq-section reveal" id="faq">
+      <div class="wrap">
+        <h2>Frequently asked questions</h2>
+        <p class="lead">Everything partners and community members need to know about FBRO.</p>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary class="faq-summary">
+              <span>Who is FBRO and when was it founded?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="faq-content">
+              <p>Future Builders Refugee Organization (FBRO) is a refugee-led community-based organization founded in 2024 in Kakuma Refugee Camp by refugees responding to community challenges including unemployment, lack of youth opportunities, poverty, conflict, environmental problems, and limited access to education.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Where does FBRO operate?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="faq-content">
+              <p>FBRO operates within Kakuma Refugee Camp and Kalobeyei Integrated Settlement in Turkana County, northwestern Kenya, working with both refugee communities and vulnerable host community members.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Who does FBRO work with in the community?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="faq-content">
+              <p>Our programs serve refugees living in Kakuma, vulnerable host community members, youth and adolescents, women and girls, persons with disabilities, elderly people, and low-income households.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>What are FBRO's main program areas?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="faq-content">
+              <p>FBRO manages seven program areas: peacebuilding and social cohesion, livelihood support (crop farming and poultry keeping), youth empowerment and skills development, education and community awareness, environmental conservation, community health and wellbeing, and cultural activities.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>How can organizations or donors partner with FBRO?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="faq-content">
+              <p>We invite NGOs, donors, CBOs, government institutions, and local groups to collaborate on practical, community-driven programs. You can fill out the partnership form on this page or email us directly at <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>How can I contact FBRO leadership directly?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="faq-content">
+              <p>You can reach Executive Director Prosper Undji Etongano at <a href="tel:+254718390124">+254 718 390 124</a> (<a href="mailto:Prosperun@gmail.com">Prosperun@gmail.com</a>) or Operations Manager Elisha Itongelo at <a href="tel:+254703957274">+254 703 957 274</a> (<a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>).</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Are donations eligible for tax exemption?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="faq-content">
+              <p><em>TODO for client review:</em> Please confirm formal fiscal sponsorship or tax exemption details with FBRO leadership before launch.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
+    <section class="footer-newsletter" aria-label="Newsletter subscription">
+      <div class="wrap newsletter-grid">
+        <div>
+          <h3>Stay updated on community progress</h3>
+          <p>Receive periodic updates on FBRO livelihoods, peacebuilding, and environmental initiatives in Kakuma.</p>
+        </div>
+        <form class="newsletter-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="get-involved.html">
+          <input type="hidden" name="form-name" value="newsletter">
+          <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
+          <div class="newsletter-form-row">
+            <label for="f-news-involved" class="sr-only">Email address</label>
+            <input id="f-news-involved" class="newsletter-input" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+            <button class="btn btn-solid" type="submit">Subscribe</button>
+          </div>
+          <p class="newsletter-privacy">We respect your privacy. Read our <a href="privacy.html">privacy policy</a>.</p>
+        </form>
+      </div>
+    </section>
+
     <div class="wrap foot">
       <div class="foot-brand">
         <span class="plate"><img src="assets/img/logo.png" width="453" height="481" alt="FBRO logo" loading="lazy"></span>
@@ -128,12 +400,46 @@
         <a href="about.html">About</a>
         <a href="programs.html">Programs</a>
         <a href="gallery.html">Gallery</a>
-        <a href="get-involved.html">Get involved</a>
+        <a href="get-involved.html" aria-current="page">Get involved</a>
         <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
       </nav>
       <p class="copy">&copy; 2026 Future Builders Refugee Organization. All rights reserved.</p>
     </div>
   </footer>
+
+  <div class="floating-actions" aria-label="Quick actions">
+    <button type="button" id="back-to-top" class="back-to-top" aria-label="Scroll back to top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+    <a href="https://wa.me/254703957274?text=Hello%20FBRO%2C%20I%20would%20like%20to%20learn%20more%20about%20your%20community%20programs%20in%20Kakuma." class="whatsapp-btn" aria-label="Chat with FBRO on WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+    </a>
+  </div>
+
+  <dialog class="search-modal" id="search-dialog" aria-label="Site Search">
+    <div class="search-modal-box">
+      <div class="search-header">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" class="search-input" id="search-input" placeholder="Search FBRO programs, activities, details…" aria-label="Search site">
+        <button type="button" class="search-close-btn" id="search-close-btn">Close (Esc)</button>
+      </div>
+      <div class="search-body">
+        <div class="search-status" id="search-status" role="status" aria-live="polite">Type to search FBRO…</div>
+        <ul class="search-results" id="search-results" role="listbox">
+          <li class="search-empty">
+            <p>Suggested searches:</p>
+            <div class="search-suggestions">
+              <a href="programs.html" class="search-sug-btn">Programs</a>
+              <a href="get-involved.html" class="search-sug-btn">Partner with us</a>
+              <a href="about.html" class="search-sug-btn">About FBRO</a>
+              <a href="contact.html" class="search-sug-btn">Contact details</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </dialog>
 
   <script src="script.js"></script>
 </body>

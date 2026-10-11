@@ -1,36 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Programs | Future Builders Refugee Organization (FBRO)</title>
-  <meta name="description" content="FBRO runs seven program areas: peacebuilding, livelihoods, youth empowerment, education, environmental conservation, community health, and cultural activities.">
+  <title>Our Programs | Future Builders Refugee Organization Kakuma</title>
+  <meta name="description" content="FBRO runs seven community programs in Kakuma: peacebuilding, livelihood support, youth skills, education, conservation, health, and cultural unity.">
   <meta name="theme-color" content="#0b1f4a">
+
+  <!-- Favicon Set -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Preload primary font -->
+  <link rel="preload" href="assets/fonts/bricolage-grotesque-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Dark Mode Initializer (FOUC Prevention) -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+  <!-- Structured Data: Organization & Breadcrumbs -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    "name": "Future Builders Refugee Organization",
+    "alternateName": "FBRO",
+    "description": "Refugee-led community-based organization in Kakuma Refugee Camp and Kalobeyei Settlement, Kenya.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kakuma Refugee Camp and Kalobeyei Settlement",
+      "addressLocality": "Kakuma",
+      "addressRegion": "Turkana County",
+      "addressCountry": "KE"
+    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+254-703-957-274",
+        "contactType": "operations",
+        "email": "fbrocbo@gmail.com"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Programs",
+        "item": "programs.html"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
 
   <div class="topbar">
     <div class="topbar-in">
       <div class="tb-left">
-        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:+254703957274">+254 703 957 274</a></span>
-        <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a></span>
+        <span class="copy-wrapper">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          <a href="tel:+254703957274">+254 703 957 274</a>
+          <button type="button" class="copy-btn" data-copy="+254 703 957 274" aria-label="Copy phone number to clipboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </span>
+        <span class="copy-wrapper">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>
+          <button type="button" class="copy-btn" data-copy="fbrocbo@gmail.com" aria-label="Copy email address to clipboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </span>
       </div>
       <div class="tb-right">Kakuma Refugee Camp &amp; Kalobeyei Settlement, Kenya</div>
     </div>
   </div>
+
   <header class="site-header">
     <div class="bar">
       <a class="brand" href="index.html" aria-label="FBRO home">
-        <img src="assets/img/logo.png" width="453" height="481" alt="FBRO logo">
+        <span class="brand-logo-frame"><img src="assets/img/logo.png" width="453" height="481" alt="FBRO logo"></span>
         <span class="brand-name"><b>FBRO</b><span>Future Builders Refugee Organization</span></span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle navigation menu">
+        <span class="hamburger-box" aria-hidden="true"><span class="hamburger-inner"></span></span>
+        <span class="nav-toggle-text">Menu</span>
+      </button>
       <nav id="nav" class="nav" aria-label="Main">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -38,12 +122,20 @@
         <a href="gallery.html">Gallery</a>
         <a href="get-involved.html">Get involved</a>
         <a href="contact.html">Contact</a>
+        <button type="button" class="search-trigger-btn" aria-label="Search website" title="Search (/ or Ctrl+K)">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span class="search-kbd-hint" aria-hidden="true">/</span>
+        </button>
+        <button type="button" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Switch color theme">
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
         <a class="btn btn-green" href="get-involved.html">Partner with us</a>
       </nav>
     </div>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="page-head">
       <div class="wrap">
         <h1>Our programs</h1>
@@ -53,59 +145,59 @@
 
     <section class="section tight">
       <div class="wrap">
-      <article class="program-row" id="peacebuilding">
-        <figure><img src="assets/img/youth-football-800.webp" srcset="assets/img/youth-football-800.webp 800w, assets/img/youth-football-1600.webp 1280w" sizes="(min-width: 900px) 50vw, 100vw" width="1280" height="960" alt="Young people lined up together on a football pitch in the evening light"></figure>
-        <div>
-          <h2>Peacebuilding and social cohesion</h2>
-          <p>FBRO brings together refugees and host community members through peace dialogues, community discussions, sports activities, and awareness campaigns that promote unity and peaceful coexistence.</p>
-        </div>
-      </article>
-      <article class="program-row" id="livelihoods">
-        <figure><img src="assets/img/farm-field-800.webp" srcset="assets/img/farm-field-800.webp 800w, assets/img/farm-field-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="People tending rows of vegetables in a green field"></figure>
-        <div>
-          <h2>Livelihood support</h2>
-          <p>We support vulnerable families and youth through poultry keeping, crop farming, and other small income-generating activities that help improve household income and food security.</p>
-        </div>
-      </article>
-      <article class="program-row" id="youth">
-        <figure><img src="assets/img/meeting-speaker-03-800.webp" srcset="assets/img/meeting-speaker-03-800.webp 800w, assets/img/meeting-speaker-03-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="An FBRO member speaking to a gathering in a classroom"></figure>
-        <div>
-          <h2>Youth empowerment and skills development</h2>
-          <p>FBRO supports youth and women through mentorship, leadership activities, vocational skills training, and entrepreneurship awareness programs that help build confidence and self-reliance.</p>
-        </div>
-      </article>
-      <article class="program-row" id="education">
-        <figure><img src="assets/img/meeting-women-01-800.webp" srcset="assets/img/meeting-women-01-800.webp 800w, assets/img/meeting-women-01-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Women listening attentively during a community session in a classroom"></figure>
-        <div>
-          <h2>Education and community awareness</h2>
-          <p>We encourage education and learning through mentorship activities, awareness campaigns, and community discussions that promote personal growth and the importance of education.</p>
-        </div>
-      </article>
-      <article class="program-row" id="environment">
-        <figure><img src="assets/img/cleanup-06-800.webp" srcset="assets/img/cleanup-06-800.webp 800w, assets/img/cleanup-06-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Community members clearing rubbish from a dirt road with rakes"></figure>
-        <div>
-          <h2>Environmental conservation</h2>
-          <p>FBRO works with community members to protect the environment through tree planting, environmental awareness activities, and promotion of proper waste management practices.</p>
-        </div>
-      </article>
-      <article class="program-row" id="health">
-        <figure><img src="assets/img/meeting-women-02-800.webp" srcset="assets/img/meeting-women-02-800.webp 800w, assets/img/meeting-women-02-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Two women seated at a school desk during a community session"></figure>
-        <div>
-          <h2>Community health and wellbeing</h2>
-          <p>We conduct awareness activities on hygiene, sanitation, disease prevention, and healthy living practices to improve community wellbeing.</p>
-        </div>
-      </article>
-      <article class="program-row" id="culture">
-        <figure><img src="assets/img/community-group-800.webp" srcset="assets/img/community-group-800.webp 800w, assets/img/community-group-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="A large group of community members posing together outdoors"></figure>
-        <div>
-          <h2>Cultural and community activities</h2>
-          <p>FBRO promotes positive cultural values, unity, and social inclusion through cultural events and community activities that strengthen relationships among different communities.</p>
-        </div>
-      </article>
+        <article class="program-row reveal" id="peacebuilding">
+          <figure class="img-wrap"><img src="assets/img/youth-football-800.webp" srcset="assets/img/youth-football-800.webp 800w, assets/img/youth-football-1600.webp 1280w" sizes="(min-width: 900px) 50vw, 100vw" width="1280" height="960" fetchpriority="high" alt="Young people lined up together on a football pitch in the evening light"></figure>
+          <div>
+            <h2>Peacebuilding and social cohesion</h2>
+            <p>FBRO brings together refugees and host community members through peace dialogues, community discussions, sports activities, and awareness campaigns that promote unity and peaceful coexistence.</p>
+          </div>
+        </article>
+        <article class="program-row reveal" id="livelihoods">
+          <figure class="img-wrap"><img src="assets/img/farm-field-800.webp" srcset="assets/img/farm-field-800.webp 800w, assets/img/farm-field-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="People tending rows of vegetables in a green field"></figure>
+          <div>
+            <h2>Livelihood support</h2>
+            <p>We support vulnerable families and youth through poultry keeping, crop farming, and other small income-generating activities that help improve household income and food security.</p>
+          </div>
+        </article>
+        <article class="program-row reveal" id="youth">
+          <figure class="img-wrap"><img src="assets/img/meeting-speaker-03-800.webp" srcset="assets/img/meeting-speaker-03-800.webp 800w, assets/img/meeting-speaker-03-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="An FBRO member speaking to a gathering in a classroom"></figure>
+          <div>
+            <h2>Youth empowerment and skills development</h2>
+            <p>FBRO supports youth and women through mentorship, leadership activities, vocational skills training, and entrepreneurship awareness programs that help build confidence and self-reliance.</p>
+          </div>
+        </article>
+        <article class="program-row reveal" id="education">
+          <figure class="img-wrap"><img src="assets/img/meeting-women-01-800.webp" srcset="assets/img/meeting-women-01-800.webp 800w, assets/img/meeting-women-01-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Women listening attentively during a community session in a classroom"></figure>
+          <div>
+            <h2>Education and community awareness</h2>
+            <p>We encourage education and learning through mentorship activities, awareness campaigns, and community discussions that promote personal growth and the importance of education.</p>
+          </div>
+        </article>
+        <article class="program-row reveal" id="environment">
+          <figure class="img-wrap"><img src="assets/img/cleanup-06-800.webp" srcset="assets/img/cleanup-06-800.webp 800w, assets/img/cleanup-06-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Community members clearing rubbish from a dirt road with rakes"></figure>
+          <div>
+            <h2>Environmental conservation</h2>
+            <p>FBRO works with community members to protect the environment through tree planting, environmental awareness activities, and promotion of proper waste management practices.</p>
+          </div>
+        </article>
+        <article class="program-row reveal" id="health">
+          <figure class="img-wrap"><img src="assets/img/meeting-women-02-800.webp" srcset="assets/img/meeting-women-02-800.webp 800w, assets/img/meeting-women-02-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Two women seated at a school desk during a community session"></figure>
+          <div>
+            <h2>Community health and wellbeing</h2>
+            <p>We conduct awareness activities on hygiene, sanitation, disease prevention, and healthy living practices to improve community wellbeing.</p>
+          </div>
+        </article>
+        <article class="program-row reveal" id="culture">
+          <figure class="img-wrap"><img src="assets/img/community-group-800.webp" srcset="assets/img/community-group-800.webp 800w, assets/img/community-group-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="A large group of community members posing together outdoors"></figure>
+          <div>
+            <h2>Cultural and community activities</h2>
+            <p>FBRO promotes positive cultural values, unity, and social inclusion through cultural events and community activities that strengthen relationships among different communities.</p>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section class="section partner">
+    <section class="section partner reveal">
       <div class="wrap partner-grid">
         <div>
           <h2>Support this work</h2>
@@ -123,6 +215,25 @@
   </main>
 
   <footer class="site-footer">
+    <section class="footer-newsletter" aria-label="Newsletter subscription">
+      <div class="wrap newsletter-grid">
+        <div>
+          <h3>Stay updated on community progress</h3>
+          <p>Receive periodic updates on FBRO livelihoods, peacebuilding, and environmental initiatives in Kakuma.</p>
+        </div>
+        <form class="newsletter-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="programs.html">
+          <input type="hidden" name="form-name" value="newsletter">
+          <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
+          <div class="newsletter-form-row">
+            <label for="f-news-programs" class="sr-only">Email address</label>
+            <input id="f-news-programs" class="newsletter-input" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+            <button class="btn btn-solid" type="submit">Subscribe</button>
+          </div>
+          <p class="newsletter-privacy">We respect your privacy. Read our <a href="privacy.html">privacy policy</a>.</p>
+        </form>
+      </div>
+    </section>
+
     <div class="wrap foot">
       <div class="foot-brand">
         <span class="plate"><img src="assets/img/logo.png" width="453" height="481" alt="FBRO logo" loading="lazy"></span>
@@ -131,14 +242,48 @@
       <nav class="foot-nav" aria-label="Footer">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="programs.html">Programs</a>
+        <a href="programs.html" aria-current="page">Programs</a>
         <a href="gallery.html">Gallery</a>
         <a href="get-involved.html">Get involved</a>
         <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
       </nav>
       <p class="copy">&copy; 2026 Future Builders Refugee Organization. All rights reserved.</p>
     </div>
   </footer>
+
+  <div class="floating-actions" aria-label="Quick actions">
+    <button type="button" id="back-to-top" class="back-to-top" aria-label="Scroll back to top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+    <a href="https://wa.me/254703957274?text=Hello%20FBRO%2C%20I%20would%20like%20to%20learn%20more%20about%20your%20community%20programs%20in%20Kakuma." class="whatsapp-btn" aria-label="Chat with FBRO on WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+    </a>
+  </div>
+
+  <dialog class="search-modal" id="search-dialog" aria-label="Site Search">
+    <div class="search-modal-box">
+      <div class="search-header">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" class="search-input" id="search-input" placeholder="Search FBRO programs, activities, details…" aria-label="Search site">
+        <button type="button" class="search-close-btn" id="search-close-btn">Close (Esc)</button>
+      </div>
+      <div class="search-body">
+        <div class="search-status" id="search-status" role="status" aria-live="polite">Type to search FBRO…</div>
+        <ul class="search-results" id="search-results" role="listbox">
+          <li class="search-empty">
+            <p>Suggested searches:</p>
+            <div class="search-suggestions">
+              <a href="programs.html" class="search-sug-btn">Programs</a>
+              <a href="get-involved.html" class="search-sug-btn">Partner with us</a>
+              <a href="about.html" class="search-sug-btn">About FBRO</a>
+              <a href="contact.html" class="search-sug-btn">Contact details</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </dialog>
 
   <script src="script.js"></script>
 </body>
