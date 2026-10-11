@@ -1,0 +1,22 @@
+{
+  "name": "Future Builders Refugee Organization",
+  "short_name": "FBRO",
+  "description": "Refugee-led community organization in Kakuma, Kenya.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0b1f4a",
+  "theme_color": "#0b1f4a",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}
