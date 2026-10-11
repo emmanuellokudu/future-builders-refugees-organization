@@ -1,14 +1,87 @@
-# FBRO website, draft v0.4 (6 pages, topbar + photo hero with cards)
+# Future Builders Refugee Organization (FBRO) Website
 
-Pages: index, about, programs, gallery, get-involved, contact. Static site with shared styles.css and script.js; photos in assets/img (WebP, 800px and 1600px).
-The four photos showing open burning of rubbish were left out of the site on purpose; ask the client before adding them.
+Static, high-performance, accessible website for Future Builders Refugee Organization (FBRO) in Kakuma Refugee Camp & Kalobeyei Settlement, Turkana County, Kenya.
 
-Preview: open index.html in a browser (fonts load from Google Fonts when online).
-Deploy: drag this folder onto Netlify or Cloudflare Pages. The contact form uses Netlify Forms (data-netlify="true"); on Cloudflare Pages swap in a Formspree action.
+Pages:
+- `index.html` (Homepage with hero, program overview, photo mosaic, and summary FAQ)
+- `about.html` (Background, vision, mission, objectives, and community approach)
+- `programs.html` (Detailed view of all seven program areas)
+- `gallery.html` (Categorized activity photo gallery with accessible lightbox)
+- `get-involved.html` (Partnership inquiry form and comprehensive FAQ accordion)
+- `contact.html` (Direct leadership contacts, location details, and message form)
+- `privacy.html` (Static privacy policy placeholder marked `TODO` for client review)
+- `404.html` (Custom error page with search bar and popular links)
 
-Before launch
-- Replace logo.png with the client's original logo file (current one is a 500px JPEG with the background removed)
-- Confirm photo captions and alt text with the client
-- Get consent for published photos, especially of young people
-- Confirm the phone numbers and emails may be shown publicly
-- Set the real domain, then add og:image and canonical tags
+Shared Assets:
+- `styles.css` (Unified design system tokens, WCAG 2.2 AA compliant light & dark mode)
+- `script.js` (Modular vanilla JavaScript under 26 KB unminified, zero tracking cookies)
+- `search-index.json` (Static JSON search index generated from HTML content)
+- `assets/fonts/` (Self-hosted WOFF2 font files for Bricolage Grotesque and Source Serif 4)
+- `assets/img/` (Responsive WebP photography, 800px and 1600px)
+
+---
+
+## Configuration Block (`script.js`)
+
+At the very top of `script.js`, organizational constants are isolated in a single configuration block:
+
+```javascript
+var CONFIG = {
+  // TODO: Confirm FBRO WhatsApp contact number with client (international format, digits only)
+  WHATSAPP_NUMBER: '254703957274',
+
+  // TODO: Confirm Netlify forms handler name for footer newsletter
+  NEWSLETTER_FORM_NAME: 'newsletter',
+
+  // UTM parameters for outgoing links (lowercase, hyphenated)
+  UTM: {
+    whatsapp: {
+      utm_source: 'website',
+      utm_medium: 'whatsapp-button',
+      utm_campaign: 'site-chat'
+    },
+    partner: {
+      utm_source: 'website',
+      utm_medium: 'partner-link',
+      utm_campaign: 'partner-outreach'
+    }
+  }
+};
+```
+
+To update the WhatsApp receiving number or form handlers, edit this object directly.
+
+---
+
+## Full-Site Search Index Generation
+
+The site features client-side, zero-dependency search that loads `search-index.json` on demand.
+
+### Running the Search Indexer
+Whenever page text, headings, or URLs are added or updated, regenerate the search index:
+
+```bash
+node scripts/build-search-index.js
+```
+
+This reads each HTML file, strips scripts and SVG markup, extracts the title, headings, and body excerpt, and outputs an updated `search-index.json`.
+
+---
+
+## Local Font Vendoring
+
+Fonts are 100% self-hosted to comply with the zero-CDN constraint and ensure fast loading on mobile connections. If fonts ever need re-fetching:
+
+```bash
+node scripts/vendor-fonts.js
+```
+
+---
+
+## Previewing and Deployment
+
+- **Preview**: Open any HTML file in a modern browser or serve with a local static HTTP server (e.g. `npx serve .` or Python `python -m http.server 8000`).
+- **Deploy**: Drag this folder directly onto Netlify or Cloudflare Pages.
+  - Forms use Netlify Forms (`data-netlify="true"`, `netlify-honeypot="bot-field"`).
+  - Outgoing campaign conventions and UTM preservation are documented in `UTM-GUIDE.md`.
+  - Deferred domain-dependent items (sitemap, canonical URLs, OG social tags) are documented in `DEFERRED.md`.
