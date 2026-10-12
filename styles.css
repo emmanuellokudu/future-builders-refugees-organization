@@ -557,8 +557,8 @@ p {
   border-bottom-color: var(--green-ui);
 }
 
-/* Header utility buttons (Theme & Search) */
-.theme-toggle, .search-trigger-btn {
+/* Header utility button (Theme) */
+.theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -574,30 +574,15 @@ p {
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
-.search-trigger-btn {
-  padding: 0.5rem 0.75rem;
-}
-
-.search-kbd-hint {
-  font-family: var(--head);
-  font-size: 0.72rem;
-  font-weight: 700;
-  opacity: 0.7;
-  padding: 1px 5px;
-  border: 1px solid var(--line-strong);
-  border-radius: 3px;
-  margin-left: 2px;
-}
-
 @media (hover: hover) {
-  .theme-toggle:hover, .search-trigger-btn:hover {
+  .theme-toggle:hover {
     background-color: var(--surface-hover);
     border-color: var(--line-strong);
     color: var(--heading);
   }
 }
 
-.theme-toggle:active, .search-trigger-btn:active {
+.theme-toggle:active {
   transform: scale(0.96);
 }
 
@@ -738,8 +723,7 @@ p {
     font-size: 1.15rem;
   }
 
-  .nav .theme-toggle,
-  .nav .search-trigger-btn {
+  .nav .theme-toggle {
     width: 100%;
     justify-content: flex-start;
     padding: var(--space-3) var(--space-4);
@@ -1911,171 +1895,6 @@ p {
   }
 }
 
-/* --------------------------------------------------------------------------
-   21. SEARCH MODAL (Feature 9)
-   -------------------------------------------------------------------------- */
-.search-modal {
-  border: 0;
-  padding: 0;
-  background: transparent;
-  max-width: min(640px, 92vw);
-  width: 100%;
-  margin: auto;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-}
-
-.search-modal::backdrop {
-  background: var(--modal-backdrop);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-.search-modal-box {
-  background-color: var(--bg-card);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  max-height: 80vh;
-}
-
-.search-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-5);
-  border-bottom: 1px solid var(--line);
-}
-
-.search-header svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--text-muted);
-  fill: none;
-  stroke-width: 2;
-  flex-shrink: 0;
-}
-
-.search-input {
-  flex: 1;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  font-size: 1.15rem;
-  color: var(--text);
-  outline: none;
-}
-
-.search-close-btn {
-  background: transparent;
-  border: 0;
-  font-family: var(--head);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-}
-
-@media (hover: hover) {
-  .search-close-btn:hover {
-    color: var(--heading);
-    background-color: var(--surface-hover);
-  }
-}
-
-.search-body {
-  overflow-y: auto;
-  padding: var(--space-4) var(--space-5);
-}
-
-.search-status {
-  font-family: var(--head);
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  margin-bottom: var(--space-3);
-}
-
-.search-results {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.search-result-item a {
-  display: block;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  border: 1px solid transparent;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast);
-}
-
-.search-result-item.selected a,
-.search-result-item a:hover {
-  background-color: var(--surface-hover);
-  border-color: var(--line);
-}
-
-.search-result-title {
-  display: block;
-  font-family: var(--head);
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--heading);
-  margin-bottom: 2px;
-}
-
-.search-result-excerpt {
-  display: block;
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-
-mark {
-  background-color: rgba(54, 127, 25, 0.2);
-  color: inherit;
-  padding: 1px 3px;
-  border-radius: 2px;
-  font-weight: 600;
-}
-
-:root[data-theme="dark"] mark {
-  background-color: rgba(77, 179, 247, 0.25);
-}
-
-.search-empty {
-  padding: var(--space-6) 0;
-  text-align: center;
-  color: var(--text-muted);
-}
-
-.search-suggestions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
-.search-sug-btn {
-  background: var(--bg-alt);
-  border: 1px solid var(--line);
-  color: var(--text);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
-  font-family: var(--head);
-  font-size: 0.88rem;
-  cursor: pointer;
-  text-decoration: none;
-}
 
 /* --------------------------------------------------------------------------
    22. LOADING & REVEAL ANIMATIONS (Feature 7)

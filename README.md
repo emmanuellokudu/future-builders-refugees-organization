@@ -10,12 +10,11 @@ Pages:
 - `get-involved.html` (Partnership inquiry form and comprehensive FAQ accordion)
 - `contact.html` (Direct leadership contacts, location details, and message form)
 - `privacy.html` (Static privacy policy placeholder marked `TODO` for client review)
-- `404.html` (Custom error page with search bar and popular links)
+- `404.html` (Custom error page with popular navigation links)
 
 Shared Assets:
 - `styles.css` (Unified design system tokens, WCAG 2.2 AA compliant light & dark mode)
 - `script.js` (Modular vanilla JavaScript under 26 KB unminified, zero tracking cookies)
-- `search-index.json` (Static JSON search index generated from HTML content)
 - `assets/fonts/` (Self-hosted WOFF2 font files for Bricolage Grotesque and Source Serif 4)
 - `assets/img/` (Responsive WebP photography, 800px and 1600px)
 
@@ -51,20 +50,6 @@ var CONFIG = {
 
 To update the WhatsApp receiving number or form handlers, edit this object directly.
 
----
-
-## Full-Site Search Index Generation
-
-The site features client-side, zero-dependency search that loads `search-index.json` on demand.
-
-### Running the Search Indexer
-Whenever page text, headings, or URLs are added or updated, regenerate the search index:
-
-```bash
-node scripts/build-search-index.js
-```
-
-This reads each HTML file, strips scripts and SVG markup, extracts the title, headings, and body excerpt, and outputs an updated `search-index.json`.
 
 ---
 

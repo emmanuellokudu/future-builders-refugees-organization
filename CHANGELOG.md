@@ -44,10 +44,7 @@ All notable changes made during the modernization and accessibility upgrade of t
 8. **Skip to Content Link**:
    - Accessible first tab stop on every page, jumping directly to `<main id="main" tabindex="-1">`.
 9. **Full-Site Client Search**:
-   - Created `scripts/build-search-index.js` extracting relative URLs, titles, headings, and excerpts into `search-index.json`.
-   - Accessible search modal dialog opened via header button, `/`, or Ctrl/Cmd+K.
-   - Substring matching with weighted ranking (Title > Heading > Body), highlight `<mark>`, live result announcements, and arrow key navigation.
-   - Lazy index loading on first modal open.
+   - *(Removed)*: Feature removed completely across all pages, styles, scripts, and build tools per request.
 10. **Floating WhatsApp CTA**:
     - 56px brand-green circular floating button with inline SVG icon, accessible label, and safe-area insets.
     - Configured with `WHATSAPP_NUMBER` and automatic UTM parameter appending. Hidden in print.
@@ -60,7 +57,7 @@ All notable changes made during the modernization and accessibility upgrade of t
     - Asynchronous `fetch` submission with loading state, success banner (`role="status"`), and fallback error message.
     - Created placeholder `privacy.html` marked `TODO` for client review.
 13. **Clean 404 Error Page**:
-    - Created `404.html` with root-absolute asset paths, `<meta name="robots" content="noindex">`, warm headline, search widget, and primary navigation links.
+    - Created `404.html` with root-absolute asset paths, `<meta name="robots" content="noindex">`, warm headline, and primary navigation links.
 14. **UTM Link Tagging & Inbound Capture**:
     - Added zero-tracking sessionStorage capture for inbound UTM parameters, automatically injected into all form submissions.
     - Added outgoing UTM configuration for WhatsApp and partners.
