@@ -9,11 +9,19 @@
 
   /* ---  --- */
   var CONFIG = {
-    // TODO: Confirm FBRO WhatsApp contact number with client (international format, digits only)
+    // WhatsApp number (digits only for links). Display uses spaced format elsewhere.
     WHATSAPP_NUMBER: '254703957274',
+    WHATSAPP_DISPLAY: '+254 703 957 274',
 
-    // TODO: Confirm Netlify forms handler name for footer newsletter
-    NEWSLETTER_FORM_NAME: 'newsletter',
+    // EmailJS configuration (fill these with your EmailJS account values)
+    // - EMAILJS_USER_ID: Public user ID from EmailJS (emailjs.init)
+    // - EMAILJS_SERVICE_ID: Service identifier (e.g. 'service_xxx')
+    // - EMAILJS_CONTACT_TEMPLATE_ID: Template ID for contact form
+    // - EMAILJS_NEWSLETTER_TEMPLATE_ID: Template ID for newsletter subscriptions
+    EMAILJS_USER_ID: '',
+    EMAILJS_SERVICE_ID: '',
+    EMAILJS_CONTACT_TEMPLATE_ID: '',
+    EMAILJS_NEWSLETTER_TEMPLATE_ID: '',
 
     // UTM parameters for outgoing links (lowercase, hyphenated)
     UTM: {
@@ -29,6 +37,27 @@
       }
     }
   };
+
+  // Load EmailJS SDK if user provided an ID (non-blocking)
+  function loadEmailJsIfNeeded() {
+    if (!CONFIG.EMAILJS_USER_ID) return Promise.resolve(false);
+    return new Promise(function (resolve) {
+      if (window.emailjs && typeof window.emailjs.init === 'function') {
+        try { window.emailjs.init(CONFIG.EMAILJS_USER_ID); } catch (e) {}
+        return resolve(true);
+      }
+
+      var s = document.createElement('script');
+      s.src = 'https://cdn.emailjs.com/sdk/3.2.0/email.min.js';
+      s.async = true;
+      s.onload = function () {
+        try { window.emailjs.init(CONFIG.EMAILJS_USER_ID); } catch (e) {}
+        resolve(true);
+      };
+      s.onerror = function () { resolve(false); };
+      document.head.appendChild(s);
+    });
+  }
 
   // Enable JS-dependent enhancements on root
   document.documentElement.classList.remove('no-js');
@@ -309,20 +338,35 @@
 
   /* ---  --- */
   (function initWhatsAppLink() {
-    var whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
+    var whatsappLinks = document.querySelectorAll('a[href*="wa.me"], a.whatsapp-btn');
     var defaultMsg = 'Hello Future Builders Refugee Organization (FBRO), I would like to learn more about your community programs in Kakuma.';
 
     whatsappLinks.forEach(function (link) {
-      var url = new URL(link.href.startsWith('http') ? link.href : 'https://wa.me/' + CONFIG.WHATSAPP_NUMBER);
-      if (!url.searchParams.get('text')) {
-        url.searchParams.set('text', defaultMsg);
+      try {
+        var href = link.getAttribute('href') || '';
+        var url = href.startsWith('http') ? new URL(href) : new URL('https://wa.me/' + CONFIG.WHATSAPP_NUMBER);
+        if (!url.searchParams.get('text')) {
+          url.searchParams.set('text', defaultMsg);
+        }
+        url.searchParams.set('utm_source', CONFIG.UTM.whatsapp.utm_source);
+        url.searchParams.set('utm_medium', CONFIG.UTM.whatsapp.utm_medium);
+        url.searchParams.set('utm_campaign', CONFIG.UTM.whatsapp.utm_campaign);
+        link.href = url.toString();
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      } catch (e) {
+        // ignore malformed URLs
       }
-      url.searchParams.set('utm_source', CONFIG.UTM.whatsapp.utm_source);
-      url.searchParams.set('utm_medium', CONFIG.UTM.whatsapp.utm_medium);
-      url.searchParams.set('utm_campaign', CONFIG.UTM.whatsapp.utm_campaign);
-      link.href = url.toString();
-      link.setAttribute('target', '_blank');
-      link.setAttribute('rel', 'noopener noreferrer');
+    });
+
+    // Update visible phone links to use display format while keeping tel: hrefs normalized
+    document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
+      if (a.getAttribute('data-display')) return;
+      var tel = a.getAttribute('href').replace(/[^+0-9]/g, '');
+      if (tel === 'tel:+254703957274' || tel.indexOf('254703957274') !== -1) {
+        a.setAttribute('data-display', CONFIG.WHATSAPP_DISPLAY);
+        a.textContent = CONFIG.WHATSAPP_DISPLAY;
+      }
     });
   })();
 
@@ -349,63 +393,96 @@
   })();
 
   /* ---  --- */
-  (function initNewsletterForm() {
-    var forms = document.querySelectorAll('.newsletter-form');
-    if (!forms.length) return;
+  (function initEmailForms() {
+    // attach to contact and newsletter forms and send via EmailJS if configured,
+    // otherwise fall back to mailto or a graceful non-js submit.
 
-    forms.forEach(function (form) {
-      form.addEventListener('submit', function (e) {
-        // Progressive enhancement: if fetch is supported, submit asynchronously
-        if (!('fetch' in window)) return;
+    function handleSuccess(container, message) {
+      container.classList.add('is-success');
+      container.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>' + message + '</span>';
+    }
+
+    function handleError(container, message) {
+      container.classList.add('is-error');
+      container.innerHTML = '<span>' + message + '</span>';
+    }
+
+    function sendWithEmailJs(form, templateId) {
+      if (!window.emailjs || !CONFIG.EMAILJS_SERVICE_ID || !templateId) return Promise.reject(new Error('EmailJS not configured'));
+      return window.emailjs.sendForm(CONFIG.EMAILJS_SERVICE_ID, templateId, form);
+    }
+
+    // Contact form
+    var contactForm = document.querySelector('form[name="contact"]');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
-
-        var emailInput = form.querySelector('input[type="email"]');
-        var submitBtn = form.querySelector('button[type="submit"]');
-        var feedbackContainer = form.parentElement.querySelector('.form-feedback') || document.createElement('div');
+        var feedbackContainer = contactForm.parentElement.querySelector('.form-feedback') || document.createElement('div');
         feedbackContainer.className = 'form-feedback';
         feedbackContainer.setAttribute('role', 'status');
 
+        // Basic validation
+        var emailInput = contactForm.querySelector('input[type="email"]');
         if (!emailInput || !emailInput.checkValidity()) {
-          emailInput.focus();
+          if (emailInput) emailInput.focus();
           return;
         }
 
-        var originalBtnText = submitBtn ? submitBtn.textContent : 'Subscribe';
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending…';
+        // Try EmailJS first
+        loadEmailJsIfNeeded().then(function () {
+          sendWithEmailJs(contactForm, CONFIG.EMAILJS_CONTACT_TEMPLATE_ID)
+            .then(function () {
+              handleSuccess(feedbackContainer, 'Message sent — thank you.');
+              contactForm.replaceWith(feedbackContainer);
+            })
+            .catch(function () {
+              // Fallback: open mailto with prefilled subject/body
+              try {
+                var name = encodeURIComponent(contactForm.querySelector('input[name="name"]').value || '');
+                var email = encodeURIComponent(contactForm.querySelector('input[name="email"]').value || '');
+                var org = encodeURIComponent(contactForm.querySelector('input[name="organization"]').value || '');
+                var msg = encodeURIComponent(contactForm.querySelector('textarea[name="message"]').value || '');
+                var subject = encodeURIComponent('Website enquiry from ' + (name || 'website visitor'));
+                var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nOrganization: ' + org + '\n\nMessage:\n' + msg);
+                window.location.href = 'mailto:' + encodeURIComponent('fbrocbo@gmail.com') + '?subject=' + subject + '&body=' + body;
+              } catch (err) {
+                handleError(feedbackContainer, 'Could not send message. Please contact us at fbrocbo@gmail.com');
+                if (!feedbackContainer.parentElement) contactForm.appendChild(feedbackContainer);
+              }
+            });
+        });
+      });
+    }
+
+    // Newsletter form
+    var newsletterForm = document.querySelector('form[name="newsletter"]');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var feedbackContainer = newsletterForm.parentElement.querySelector('.form-feedback') || document.createElement('div');
+        feedbackContainer.className = 'form-feedback';
+        feedbackContainer.setAttribute('role', 'status');
+
+        var emailInput = newsletterForm.querySelector('input[type="email"]');
+        if (!emailInput || !emailInput.checkValidity()) {
+          if (emailInput) emailInput.focus();
+          return;
         }
 
-        var formData = new FormData(form);
-        var urlEncoded = new URLSearchParams(formData).toString();
-
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: urlEncoded
-        })
-          .then(function (res) {
-            if (res.ok) {
-              feedbackContainer.classList.add('is-success');
-              feedbackContainer.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Thank you! You are now subscribed to FBRO community updates.</span>';
-              form.replaceWith(feedbackContainer);
-            } else {
-              throw new Error('Server returned ' + res.status);
-            }
-          })
-          .catch(function () {
-            if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.textContent = originalBtnText;
-            }
-            feedbackContainer.classList.add('is-error');
-            feedbackContainer.innerHTML = '<span>Could not send subscription. Please contact us directly at <a href="mailto:fbrocbo@gmail.com" style="color:#ffffff; text-decoration:underline;">fbrocbo@gmail.com</a>.</span>';
-            if (!feedbackContainer.parentElement) {
-              form.appendChild(feedbackContainer);
-            }
-          });
+        loadEmailJsIfNeeded().then(function () {
+          sendWithEmailJs(newsletterForm, CONFIG.EMAILJS_NEWSLETTER_TEMPLATE_ID)
+            .then(function () {
+              handleSuccess(feedbackContainer, 'Subscription confirmed — thank you.');
+              newsletterForm.replaceWith(feedbackContainer);
+            })
+            .catch(function () {
+              // Fallback: simple thank you message and advise to email directly
+              handleError(feedbackContainer, 'Could not subscribe via form. Please email us at fbrocbo@gmail.com to subscribe.');
+              if (!feedbackContainer.parentElement) newsletterForm.appendChild(feedbackContainer);
+            });
+        });
       });
-    });
+    }
   })();
 
   /* ---  --- */
