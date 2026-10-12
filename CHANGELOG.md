@@ -4,6 +4,28 @@ All notable changes made during the modernization and accessibility upgrade of t
 
 ---
 
+## [1.1.0] - Production Custom Domain & Local SEO Rollout (2026-10-12)
+
+### Canonical Domain & Discovery
+- **Custom Domain Setup**: Configured live canonical domain `https://fbrocbo.com/` across all pages.
+- **GitHub Pages Deployment**: Added root `CNAME` for `fbrocbo.com` and documented GitHub Pages DNS setup (A & CNAME records).
+- **XML Sitemap**: Created `sitemap.xml` listing all 7 indexable pages with `https://fbrocbo.com/` URLs and `<lastmod>` timestamps.
+- **Robots Directive**: Created `robots.txt` granting crawl access and referencing `https://fbrocbo.com/sitemap.xml`.
+
+### Local Search Engine Optimization (SEO)
+- **Local Keyword Targeting**: Enriched metadata, page titles, descriptions, and headings with localized search phrases: "Kakuma Refugee Camp", "Kalobeyei Settlement", "Turkana County", "Kenya", "refugee-led CBO", "humanitarian support", "peacebuilding", "livelihoods", and "youth empowerment".
+- **Social Graph Sharing**: Added complete Open Graph (`og:*`) and Twitter Card (`twitter:*`) tags to all pages pointing to live production images (`https://fbrocbo.com/assets/img/community-group-1600.webp`).
+- **Structured Data (JSON-LD)**:
+  - Enhanced `NGO` schema with live domain `url`, `logo`, `image`, `areaServed`, `knowsAbout`, phone numbers, and official emails.
+  - Upgraded inner-page `BreadcrumbList` schema to fully-qualified production URLs.
+  - Refined `FAQPage` schema on homepage and Get Involved page.
+
+### Form Handling & Privacy Policy
+- **EmailJS Integration**: Enhanced `script.js` with `EMAILJS_PARTNERSHIP_TEMPLATE_ID`, anti-spam honeypot verification, and progressive `mailto:` fallback across contact, partnership, and newsletter forms.
+- **Privacy Policy**: Upgraded `privacy.html` with review-ready clauses covering EmailJS processing, data retention, zero commercial sale of data, and user access/deletion rights.
+
+---
+
 ## [1.0.0] - Upgrade Release
 
 ### Design System & Architecture (Step 1)

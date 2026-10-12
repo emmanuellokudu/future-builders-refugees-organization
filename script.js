@@ -14,14 +14,16 @@
     WHATSAPP_DISPLAY: '+254 703 957 274',
 
     // EmailJS configuration (fill these with your EmailJS account values)
-    // - EMAILJS_USER_ID: Public user ID from EmailJS (emailjs.init)
+    // - EMAILJS_USER_ID: Public user ID / Public Key from EmailJS (emailjs.init)
     // - EMAILJS_SERVICE_ID: Service identifier (e.g. 'service_xxx')
-    // - EMAILJS_CONTACT_TEMPLATE_ID: Template ID for contact form
-    // - EMAILJS_NEWSLETTER_TEMPLATE_ID: Template ID for newsletter subscriptions
+    // - EMAILJS_CONTACT_TEMPLATE_ID: Template ID for contact form (e.g. 'template_contact')
+    // - EMAILJS_NEWSLETTER_TEMPLATE_ID: Template ID for newsletter subscriptions (e.g. 'template_newsletter')
+    // - EMAILJS_PARTNERSHIP_TEMPLATE_ID: Template ID for partnership inquiries (e.g. 'template_partnership')
     EMAILJS_USER_ID: '',
     EMAILJS_SERVICE_ID: '',
     EMAILJS_CONTACT_TEMPLATE_ID: '',
     EMAILJS_NEWSLETTER_TEMPLATE_ID: '',
+    EMAILJS_PARTNERSHIP_TEMPLATE_ID: '',
 
     // UTM parameters for outgoing links (lowercase, hyphenated)
     UTM: {
@@ -394,8 +396,8 @@
 
   /* ---  --- */
   (function initEmailForms() {
-    // attach to contact and newsletter forms and send via EmailJS if configured,
-    // otherwise fall back to mailto or a graceful non-js submit.
+    // Attach to contact, partnership, and newsletter forms and send via EmailJS if configured,
+    // otherwise fall back gracefully to mailto. Compatible with static GitHub Pages hosting.
 
     function handleSuccess(container, message) {
       container.classList.add('is-success');
@@ -405,6 +407,11 @@
     function handleError(container, message) {
       container.classList.add('is-error');
       container.innerHTML = '<span>' + message + '</span>';
+    }
+
+    function isHoneypotTriggered(form) {
+      var botField = form.querySelector('input[name="bot-field"]');
+      return botField && botField.value.trim().length > 0;
     }
 
     function sendWithEmailJs(form, templateId) {
@@ -417,11 +424,12 @@
     if (contactForm) {
       contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
+        if (isHoneypotTriggered(contactForm)) return;
+
         var feedbackContainer = contactForm.parentElement.querySelector('.form-feedback') || document.createElement('div');
         feedbackContainer.className = 'form-feedback';
         feedbackContainer.setAttribute('role', 'status');
 
-        // Basic validation
         var emailInput = contactForm.querySelector('input[type="email"]');
         if (!emailInput || !emailInput.checkValidity()) {
           if (emailInput) emailInput.focus();
@@ -432,21 +440,21 @@
         loadEmailJsIfNeeded().then(function () {
           sendWithEmailJs(contactForm, CONFIG.EMAILJS_CONTACT_TEMPLATE_ID)
             .then(function () {
-              handleSuccess(feedbackContainer, 'Message sent — thank you.');
+              handleSuccess(feedbackContainer, 'Message sent — thank you. We will be in touch shortly.');
               contactForm.replaceWith(feedbackContainer);
             })
             .catch(function () {
               // Fallback: open mailto with prefilled subject/body
               try {
-                var name = encodeURIComponent(contactForm.querySelector('input[name="name"]').value || '');
-                var email = encodeURIComponent(contactForm.querySelector('input[name="email"]').value || '');
-                var org = encodeURIComponent(contactForm.querySelector('input[name="organization"]').value || '');
-                var msg = encodeURIComponent(contactForm.querySelector('textarea[name="message"]').value || '');
-                var subject = encodeURIComponent('Website enquiry from ' + (name || 'website visitor'));
-                var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nOrganization: ' + org + '\n\nMessage:\n' + msg);
+                var name = encodeURIComponent((contactForm.querySelector('input[name="name"]') || {}).value || '');
+                var email = encodeURIComponent((contactForm.querySelector('input[name="email"]') || {}).value || '');
+                var org = encodeURIComponent((contactForm.querySelector('input[name="organization"]') || {}).value || '');
+                var msg = encodeURIComponent((contactForm.querySelector('textarea[name="message"]') || {}).value || '');
+                var subject = encodeURIComponent('Website enquiry from ' + (decodeURIComponent(name) || 'website visitor'));
+                var body = encodeURIComponent('Name: ' + decodeURIComponent(name) + '\nEmail: ' + decodeURIComponent(email) + (org ? '\nOrganization: ' + decodeURIComponent(org) : '') + '\n\nMessage:\n' + decodeURIComponent(msg));
                 window.location.href = 'mailto:' + encodeURIComponent('fbrocbo@gmail.com') + '?subject=' + subject + '&body=' + body;
               } catch (err) {
-                handleError(feedbackContainer, 'Could not send message. Please contact us at fbrocbo@gmail.com');
+                handleError(feedbackContainer, 'Could not send message. Please contact us directly at <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>.');
                 if (!feedbackContainer.parentElement) contactForm.appendChild(feedbackContainer);
               }
             });
@@ -454,32 +462,83 @@
       });
     }
 
-    // Newsletter form
-    var newsletterForm = document.querySelector('form[name="newsletter"]');
-    if (newsletterForm) {
-      newsletterForm.addEventListener('submit', function (e) {
+    // Partnership inquiry form (get-involved.html)
+    var partnershipForm = document.querySelector('form[name="partnership"]');
+    if (partnershipForm) {
+      partnershipForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        var feedbackContainer = newsletterForm.parentElement.querySelector('.form-feedback') || document.createElement('div');
+        if (isHoneypotTriggered(partnershipForm)) return;
+
+        var feedbackContainer = partnershipForm.parentElement.querySelector('.form-feedback') || document.createElement('div');
         feedbackContainer.className = 'form-feedback';
         feedbackContainer.setAttribute('role', 'status');
 
-        var emailInput = newsletterForm.querySelector('input[type="email"]');
+        var emailInput = partnershipForm.querySelector('input[type="email"]');
         if (!emailInput || !emailInput.checkValidity()) {
           if (emailInput) emailInput.focus();
           return;
         }
 
         loadEmailJsIfNeeded().then(function () {
-          sendWithEmailJs(newsletterForm, CONFIG.EMAILJS_NEWSLETTER_TEMPLATE_ID)
+          var templateId = CONFIG.EMAILJS_PARTNERSHIP_TEMPLATE_ID || CONFIG.EMAILJS_CONTACT_TEMPLATE_ID;
+          sendWithEmailJs(partnershipForm, templateId)
             .then(function () {
-              handleSuccess(feedbackContainer, 'Subscription confirmed — thank you.');
-              newsletterForm.replaceWith(feedbackContainer);
+              handleSuccess(feedbackContainer, 'Partnership inquiry sent — thank you. We will be in touch shortly.');
+              partnershipForm.replaceWith(feedbackContainer);
             })
             .catch(function () {
-              // Fallback: simple thank you message and advise to email directly
-              handleError(feedbackContainer, 'Could not subscribe via form. Please email us at fbrocbo@gmail.com to subscribe.');
-              if (!feedbackContainer.parentElement) newsletterForm.appendChild(feedbackContainer);
+              try {
+                var name = encodeURIComponent((partnershipForm.querySelector('input[name="name"]') || {}).value || '');
+                var email = encodeURIComponent((partnershipForm.querySelector('input[name="email"]') || {}).value || '');
+                var org = encodeURIComponent((partnershipForm.querySelector('input[name="organization"]') || {}).value || '');
+                var type = encodeURIComponent((partnershipForm.querySelector('select[name="inquiry-type"]') || {}).value || '');
+                var msg = encodeURIComponent((partnershipForm.querySelector('textarea[name="message"]') || {}).value || '');
+                var subject = encodeURIComponent('Partnership inquiry from ' + (decodeURIComponent(name) || 'website visitor') + (org ? ' (' + decodeURIComponent(org) + ')' : ''));
+                var body = encodeURIComponent('Name: ' + decodeURIComponent(name) + '\nEmail: ' + decodeURIComponent(email) + (org ? '\nOrganization: ' + decodeURIComponent(org) : '') + (type ? '\nInquiry Type: ' + decodeURIComponent(type) : '') + '\n\nMessage:\n' + decodeURIComponent(msg));
+                window.location.href = 'mailto:' + encodeURIComponent('fbrocbo@gmail.com') + '?subject=' + subject + '&body=' + body;
+              } catch (err) {
+                handleError(feedbackContainer, 'Could not send inquiry. Please email us directly at <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>.');
+                if (!feedbackContainer.parentElement) partnershipForm.appendChild(feedbackContainer);
+              }
             });
+        });
+      });
+    }
+
+    // Newsletter forms across all pages
+    var newsletterForms = document.querySelectorAll('form[name="newsletter"]');
+    if (newsletterForms.length) {
+      newsletterForms.forEach(function (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (isHoneypotTriggered(form)) return;
+
+          var feedbackContainer = form.parentElement.querySelector('.form-feedback') || document.createElement('div');
+          feedbackContainer.className = 'form-feedback';
+          feedbackContainer.setAttribute('role', 'status');
+
+          var emailInput = form.querySelector('input[type="email"]');
+          if (!emailInput || !emailInput.checkValidity()) {
+            if (emailInput) emailInput.focus();
+            return;
+          }
+
+          loadEmailJsIfNeeded().then(function () {
+            sendWithEmailJs(form, CONFIG.EMAILJS_NEWSLETTER_TEMPLATE_ID)
+              .then(function () {
+                handleSuccess(feedbackContainer, 'Subscription confirmed — thank you for following FBRO community updates.');
+                form.replaceWith(feedbackContainer);
+              })
+              .catch(function () {
+                try {
+                  var subEmail = encodeURIComponent(emailInput.value || '');
+                  window.location.href = 'mailto:' + encodeURIComponent('fbrocbo@gmail.com') + '?subject=' + encodeURIComponent('Newsletter Subscription Request') + '&body=' + encodeURIComponent('Please subscribe ' + decodeURIComponent(subEmail) + ' to FBRO community updates from Kakuma.');
+                } catch (err) {
+                  handleError(feedbackContainer, 'Could not subscribe via form. Please email us at <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>.');
+                  if (!feedbackContainer.parentElement) form.appendChild(feedbackContainer);
+                }
+              });
+          });
         });
       });
     }

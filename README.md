@@ -2,21 +2,28 @@
 
 Static, high-performance, accessible website for Future Builders Refugee Organization (FBRO) in Kakuma Refugee Camp & Kalobeyei Settlement, Turkana County, Kenya.
 
-Pages:
-- `index.html` (Homepage with hero, program overview, photo mosaic, and summary FAQ)
+Live Production URL: **[https://fbrocbo.com/](https://fbrocbo.com/)**
+
+## Pages Overview
+
+- `index.html` (Homepage with hero, program highlights, field photo mosaic, and summary FAQ)
 - `about.html` (Background, vision, mission, objectives, and community approach)
-- `programs.html` (Detailed view of all seven program areas)
-- `gallery.html` (Categorized activity photo gallery with accessible lightbox)
-- `get-involved.html` (Partnership inquiry form and comprehensive FAQ accordion)
+- `programs.html` (Comprehensive view of all seven core program areas)
+- `gallery.html` (Categorized activity photo gallery with accessible modal lightbox)
+- `get-involved.html` (Partnership inquiry form, volunteer details, and comprehensive FAQ accordion)
 - `contact.html` (Direct leadership contacts, location details, and message form)
-- `privacy.html` (Static privacy policy placeholder marked `TODO` for client review)
+- `privacy.html` (Review-ready privacy policy covering EmailJS and data protection)
 - `404.html` (Custom error page with popular navigation links)
 
-Shared Assets:
+## Shared Assets
+
 - `styles.css` (Unified design system tokens, WCAG 2.2 AA compliant light & dark mode)
 - `script.js` (Modular vanilla JavaScript under 26 KB unminified, zero tracking cookies)
 - `assets/fonts/` (Self-hosted WOFF2 font files for Bricolage Grotesque and Source Serif 4)
-- `assets/img/` (Responsive WebP photography, 800px and 1600px)
+- `assets/img/` (Responsive WebP photography, 800px and 1600px variants)
+- `CNAME` (Configured for custom domain `fbrocbo.com`)
+- `sitemap.xml` (Full XML sitemap for search engine discovery)
+- `robots.txt` (Robots exclusion protocol directive with sitemap reference)
 
 ---
 
@@ -26,11 +33,21 @@ At the very top of `script.js`, organizational constants are isolated in a singl
 
 ```javascript
 var CONFIG = {
-  // TODO: Confirm FBRO WhatsApp contact number with client (international format, digits only)
+  // WhatsApp contact number (international digits only)
   WHATSAPP_NUMBER: '254703957274',
+  WHATSAPP_DISPLAY: '+254 703 957 274',
 
-  // TODO: Confirm Netlify forms handler name for footer newsletter
-  NEWSLETTER_FORM_NAME: 'newsletter',
+  // EmailJS configuration (fill these with your EmailJS account values)
+  // - EMAILJS_USER_ID: Public User ID / Public Key from EmailJS dashboard (Account > API Keys)
+  // - EMAILJS_SERVICE_ID: Email service ID (e.g. 'service_gmail')
+  // - EMAILJS_CONTACT_TEMPLATE_ID: Template ID for contact form (e.g. 'template_contact')
+  // - EMAILJS_NEWSLETTER_TEMPLATE_ID: Template ID for newsletter subscriptions (e.g. 'template_newsletter')
+  // - EMAILJS_PARTNERSHIP_TEMPLATE_ID: Template ID for partnership inquiries (e.g. 'template_partnership')
+  EMAILJS_USER_ID: '',
+  EMAILJS_SERVICE_ID: '',
+  EMAILJS_CONTACT_TEMPLATE_ID: '',
+  EMAILJS_NEWSLETTER_TEMPLATE_ID: '',
+  EMAILJS_PARTNERSHIP_TEMPLATE_ID: '',
 
   // UTM parameters for outgoing links (lowercase, hyphenated)
   UTM: {
@@ -48,25 +65,72 @@ var CONFIG = {
 };
 ```
 
-To update the WhatsApp receiving number or form handlers, edit this object directly.
+### Form Handling on GitHub Pages
 
+1. **EmailJS Integration**: When `EMAILJS_USER_ID` and service/template IDs are provided, form submissions are sent asynchronously via EmailJS without requiring a backend server.
+2. **Mailto Fallback**: If EmailJS is not configured or fails, forms automatically fall back to opening the visitor's default email client (`mailto:fbrocbo@gmail.com`) pre-filled with the inquiry subject, name, organization, and message.
+3. **Bot Spam Protection**: Forms feature an invisible honeypot (`bot-field`). If filled by a bot, submission is silently ignored.
+
+---
+
+## GitHub Pages & Custom Domain Deployment
+
+This repository is designed for zero-build deployment on **GitHub Pages**.
+
+### Custom Domain Setup (`fbrocbo.com`)
+
+1. **CNAME File**: The root `CNAME` file contains `fbrocbo.com`.
+2. **DNS Records** (at domain registrar or DNS manager):
+   - **Apex / Root Domain (`fbrocbo.com`)**: Create 4 `A` records pointing to GitHub Pages IP addresses:
+     ```
+     185.199.108.153
+     185.199.109.153
+     185.199.110.153
+     185.199.111.153
+     ```
+   - **Subdomain (`www.fbrocbo.com`)**: Create a `CNAME` record pointing to:
+     ```
+     emmanuellokudu.github.io
+     ```
+3. **Repository Settings**:
+   - In GitHub repository: `Settings` &rarr; `Pages`.
+   - Source: Deploy from branch `main` / `(root)`.
+   - Custom domain: `fbrocbo.com`.
+   - Check **Enforce HTTPS** once DNS propagation completes and the TLS certificate is issued.
+
+---
+
+## Local SEO & Keyword Optimization
+
+The site is targeted for local search queries originating from and relating to **Kakuma Refugee Camp, Kalobeyei Integrated Settlement, Turkana County, and Kenya**:
+
+- **Target Keywords**: refugee, refugees, refugee-led, CBO, community-based organization, humanitarian, peacebuilding, livelihoods, youth empowerment, Kakuma, Kalobeyei, Turkana, Kenya, Kakuma Refugee Camp, Kalobeyei Settlement, Turkana County.
+- **Canonical URLs**: Every page contains a `<link rel="canonical" href="https://fbrocbo.com/...">` pointing to the live production URL.
+- **Social Sharing**: Open Graph (`og:*`) and Twitter Card (`twitter:*`) tags are configured with absolute production URLs (`https://fbrocbo.com/assets/img/community-group-1600.webp`).
+- **Structured Data (JSON-LD)**:
+  - `NGO` schema with official name, address, contact points, service areas, and knowledge domains.
+  - `BreadcrumbList` schema with fully qualified canonical URLs.
+  - `FAQPage` schema on homepage and Get Involved page for Google Rich Results.
+- **Discovery**: `robots.txt` and `sitemap.xml` are located in the web root.
 
 ---
 
 ## Local Font Vendoring
 
-Fonts are 100% self-hosted to comply with the zero-CDN constraint and ensure fast loading on mobile connections. If fonts ever need re-fetching:
+Fonts are 100% self-hosted to comply with zero-CDN constraints and ensure fast loading on low-bandwidth mobile connections. If fonts ever need re-fetching:
 
 ```bash
 node scripts/vendor-fonts.js
 ```
 
----
+## Previewing Locally
 
-## Previewing and Deployment
+Run a lightweight static HTTP server from the root directory:
 
-- **Preview**: Open any HTML file in a modern browser or serve with a local static HTTP server (e.g. `npx serve .` or Python `python -m http.server 8000`).
-- **Deploy**: Drag this folder directly onto Netlify or Cloudflare Pages.
-  - Forms use Netlify Forms (`data-netlify="true"`, `netlify-honeypot="bot-field"`).
-  - Outgoing campaign conventions and UTM preservation are documented in `UTM-GUIDE.md`.
-  - Deferred domain-dependent items (sitemap, canonical URLs, OG social tags) are documented in `DEFERRED.md`.
+```bash
+# Using Node
+node scripts/serve.js
+
+# Or using Python
+python -m http.server 8000
+```

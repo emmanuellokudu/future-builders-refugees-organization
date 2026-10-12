@@ -1,46 +1,38 @@
-# Deferred Tasks (Pending Live Domain Setup)
+# Live Domain Tasks & Status
 
-The following items are deliberately deferred until FBRO secures a production domain name and deploys to a live URL. They should be implemented in a single pass once the domain (e.g., `https://fbro.org`) is finalized.
+Tasks completed during custom domain production rollout for **[https://fbrocbo.com/](https://fbrocbo.com/)**:
 
 ---
 
-## 1. Domain-Dependent Meta Tags
-- [ ] **Canonical URL Tags**: `<link rel="canonical" href="https://<DOMAIN>/<page>.html">` on each page.
-- [ ] **Open Graph URL**: `<meta property="og:url" content="https://<DOMAIN>/<page>.html">`
-- [ ] **Open Graph Image**:
-  - Produce a 1200x630 px social share image (`assets/img/og-share.jpg`) featuring FBRO community work.
-  - Add `<meta property="og:image" content="https://<DOMAIN>/assets/img/og-share.jpg">`.
-  - Add `<meta property="og:image:width" content="1200">` and `<meta property="og:image:height" content="630">`.
-- [ ] **Twitter Card Tags**:
+## 1. Domain-Dependent Meta Tags (Completed)
+- [x] **Canonical URL Tags**: `<link rel="canonical" href="https://fbrocbo.com/<page>.html">` implemented across all pages.
+- [x] **Open Graph URL**: `<meta property="og:url" content="https://fbrocbo.com/<page>.html">` on each page.
+- [x] **Open Graph Image**:
+  - Configured `<meta property="og:image" content="https://fbrocbo.com/assets/img/community-group-1600.webp">`.
+  - Configured `<meta property="og:image:width" content="1600">` and `<meta property="og:image:height" content="1066">`.
+  - Configured descriptive accessibility alt tags.
+- [x] **Twitter Card Tags**:
   - `<meta name="twitter:card" content="summary_large_image">`.
-  - `<meta name="twitter:image" content="https://<DOMAIN>/assets/img/og-share.jpg">`.
+  - `<meta name="twitter:image" content="https://fbrocbo.com/assets/img/community-group-1600.webp">`.
 
 ---
 
-## 2. Search Engine & Discovery Files
-- [ ] **Sitemap (`sitemap.xml`)**:
-  - Generate a full XML sitemap containing all pages with `<lastmod>` timestamps and `https://<DOMAIN>` absolute URLs.
-- [ ] **Robots.txt Directive**:
-  - Add the sitemap location directive to `robots.txt`:
-    ```
-    Sitemap: https://<DOMAIN>/sitemap.xml
-    ```
+## 2. Search Engine & Discovery Files (Completed)
+- [x] **Sitemap (`sitemap.xml`)**:
+  - Full XML sitemap generated with `https://fbrocbo.com/` URLs, `<lastmod>`, and priority weights for all 7 indexed pages.
+- [x] **Robots.txt Directive**:
+  - Added `robots.txt` referencing `Sitemap: https://fbrocbo.com/sitemap.xml`.
+- [x] **GitHub Pages CNAME**:
+  - Created root `CNAME` containing `fbrocbo.com`.
 
 ---
 
-## 3. Structured Data (JSON-LD) Domain Fields
-- [ ] **Organization / NGO Schema**:
-  - Add `"url": "https://<DOMAIN>/"` to the root `NGO` object in JSON-LD.
-  - Add `"sameAs"` array pointing to verified official social channels:
-    ```json
-    "sameAs": [
-      "https://facebook.com/<fbro-page>",
-      "https://linkedin.com/company/<fbro-page>",
-      "https://twitter.com/<fbro-handle>"
-    ]
-    ```
-- [ ] **BreadcrumbList Schema**:
-  - Convert breadcrumb item `id` attributes to fully-qualified live domain URLs.
+## 3. Structured Data (JSON-LD) Domain Fields (Completed)
+- [x] **Organization / NGO Schema**:
+  - Added `"url": "https://fbrocbo.com/"`, `"logo": "https://fbrocbo.com/assets/img/logo.png"`, `"image": "https://fbrocbo.com/assets/img/community-group-1600.webp"`.
+  - Added location in Kakuma Refugee Camp & Kalobeyei Settlement, Turkana County, Kenya, contact points, and `areaServed`.
+- [x] **BreadcrumbList Schema**:
+  - Converted breadcrumb items to fully qualified `https://fbrocbo.com/...` URLs.
 
 ---
 
