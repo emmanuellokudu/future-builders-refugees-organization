@@ -2132,15 +2132,42 @@ html.js .reveal.is-revealed {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  margin: var(--space-4) 0;
 }
 
+.form-feedback svg {
+  flex-shrink: 0;
+}
+
+.form-feedback a {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+/* Light theme defaults (high contrast) */
 .form-feedback.is-success {
+  background-color: #eaf5e5;
+  border: 1px solid #2b6814;
+  color: #144d0d;
+}
+
+.form-feedback.is-error {
+  background-color: #fee2e2;
+  border: 1px solid #dc2626;
+  color: #991b1b;
+}
+
+/* Dark theme & dark container overrides */
+[data-theme="dark"] .form-feedback.is-success,
+footer .form-feedback.is-success {
   background-color: rgba(54, 127, 25, 0.25);
   border: 1px solid var(--leaf-light);
   color: #ffffff;
 }
 
-.form-feedback.is-error {
+[data-theme="dark"] .form-feedback.is-error,
+footer .form-feedback.is-error {
   background-color: rgba(220, 38, 38, 0.25);
   border: 1px solid #f87171;
   color: #ffffff;

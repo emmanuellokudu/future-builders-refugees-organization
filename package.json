@@ -1,0 +1,27 @@
+{
+  "name": "fbro-website",
+  "version": "1.2.0",
+  "description": "Production static website for Future Builders Refugee Organization (FBRO), Kakuma, Kenya.",
+  "main": "script.js",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "serve": "node scripts/serve.js",
+    "test": "node scripts/smoke-test.js",
+    "test:smoke": "node scripts/smoke-test.js",
+    "lint:html": "npx --yes htmlhint *.html",
+    "optimize-images": "node scripts/optimize-images.js"
+  },
+  "keywords": [
+    "fbro",
+    "refugee-led-organization",
+    "kakuma",
+    "static-site",
+    "github-pages"
+  ],
+  "author": "Future Builders Refugee Organization (FBRO)",
+  "license": "CC-BY-4.0",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

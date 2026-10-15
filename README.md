@@ -65,11 +65,27 @@ var CONFIG = {
 };
 ```
 
-### Form Handling on GitHub Pages
+### EmailJS Setup & Form Configuration
 
-1. **EmailJS Integration**: When `EMAILJS_USER_ID` and service/template IDs are provided, form submissions are sent asynchronously via EmailJS without requiring a backend server.
-2. **Mailto Fallback**: If EmailJS is not configured or fails, forms automatically fall back to opening the visitor's default email client (`mailto:futurebuildersrefugeeorganizat@gmail.com`) pre-filled with the inquiry subject, name, organization, and message.
-3. **Bot Spam Protection**: Forms feature an invisible honeypot (`bot-field`). If filled by a bot, submission is silently ignored.
+By default, all EmailJS values in `CONFIG` are left blank, and the website operates with 100% functionality using the accessible `mailto:` fallback.
+
+To enable direct email delivery via [EmailJS](https://www.emailjs.com/):
+
+1. **Required Configuration Values** in `script.js`:
+   - `EMAILJS_USER_ID`: Public Key / Account User ID (EmailJS Dashboard &rarr; Account &rarr; API Keys)
+   - `EMAILJS_SERVICE_ID`: Service ID linked to your email provider (e.g. `service_gmail`)
+   - `EMAILJS_CONTACT_TEMPLATE_ID`: Template ID for general contact inquiries
+   - `EMAILJS_NEWSLETTER_TEMPLATE_ID`: Template ID for newsletter subscriptions
+   - `EMAILJS_PARTNERSHIP_TEMPLATE_ID`: Template ID for partnership proposals
+
+2. **Security & Credentials**:
+   - Only public client keys belong in `script.js`.
+   - **Never commit private API keys or personal access tokens.**
+   - All forms include an invisible bot honeypot (`bot-field`) to reject automated spam.
+
+3. **Local Testing & Graceful Fallback**:
+   - If EmailJS keys are blank or if the network request fails, forms automatically fall back to opening the visitor's default email client (`mailto:futurebuildersrefugeeorganizat@gmail.com`) with pre-filled subject and body.
+   - **URL Length Protection**: If an inquiry exceeds 1,900 characters, the script prevents browser mailto failures and displays a clear message directing the user to email directly.
 
 ---
 
@@ -90,16 +106,16 @@ This repository is designed for zero-build deployment on **GitHub Pages**.
 ### Custom Domain Setup (`futurebuildersrefugeeorganization.com`)
 
 1. **CNAME File**: The root `CNAME` file contains `futurebuildersrefugeeorganization.com`.
-2. **DNS Records** (at domain registrar or DNS manager):
+2. **DNS Records** (at your domain registrar or DNS manager):
    - **Apex / Root Domain (`futurebuildersrefugeeorganization.com`)**: Create 4 `A` records pointing to GitHub Pages IP addresses:
-     ```
+     ```text
      185.199.108.153
      185.199.109.153
      185.199.110.153
      185.199.111.153
      ```
    - **Subdomain (`www.futurebuildersrefugeeorganization.com`)**: Create a `CNAME` record pointing to:
-     ```
+     ```text
      emmanuellokudu.github.io
      ```
 3. **Repository Settings**:
@@ -107,6 +123,53 @@ This repository is designed for zero-build deployment on **GitHub Pages**.
    - Source: Deploy from branch `main` / `(root)`.
    - Custom domain: `futurebuildersrefugeeorganization.com`.
    - Check **Enforce HTTPS** once DNS propagation completes and the TLS certificate is issued.
+
+---
+
+## Local Development, Testing & Quality Assurance
+
+### Local Preview
+Run a static HTTP server from the root directory:
+
+```bash
+# Using npm
+npm start
+
+# Or directly with Node
+node scripts/serve.js
+
+# Or using Python
+python -m http.server 8000
+```
+Visit `http://127.0.0.1:8080/`.
+
+### Automated Smoke Tests & Link Validation
+Run the built-in smoke test before committing:
+
+```bash
+npm test
+```
+The test suite validates:
+- CNAME, `robots.txt`, and `sitemap.xml` domain verification
+- All 8 HTML files and critical structural anchors
+- Form elements, honeypots, and accessible labels
+- Resolution of all 250+ internal image and page links (0 broken links)
+- JavaScript syntax and form fallback behaviors
+
+### Image Optimization (`scripts/optimize-images.js`)
+To re-encode WebP images in `assets/img/` with a custom quality target (70–80):
+
+```bash
+# 1. Install optional devDependency
+npm install -D sharp
+
+# 2. Run image optimization (target quality 75)
+npm run optimize-images
+
+# Or specify custom quality
+node scripts/optimize-images.js --quality=80
+```
+This utility is non-destructive, never renames files, and only overwrites if the optimized buffer is smaller than the original.
 
 ---
 
@@ -133,14 +196,3 @@ Fonts are 100% self-hosted to comply with zero-CDN constraints and ensure fast l
 node scripts/vendor-fonts.js
 ```
 
-## Previewing Locally
-
-Run a lightweight static HTTP server from the root directory:
-
-```bash
-# Using Node
-node scripts/serve.js
-
-# Or using Python
-python -m http.server 8000
-```
