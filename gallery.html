@@ -43,9 +43,12 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <!-- Preload primary font -->
+  <!-- Preload primary font for instant heading display -->
   <link rel="preload" href="assets/fonts/bricolage-grotesque-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/source-serif-4-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Preload LCP gallery thumbnail for fast low-network paint -->
+  <link rel="preload" as="image" href="assets/img/cleanup-01-480.webp"
+    imagesrcset="assets/img/cleanup-01-480.webp 480w, assets/img/cleanup-01-800.webp 800w"
+    imagesizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" fetchpriority="high">
 
   <link rel="stylesheet" href="styles.css">
 
@@ -251,25 +254,25 @@
           <div class="g-cols">
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/cleanup-01-1600.webp" data-cap="Community clean-up" data-alt="A volunteer clearing overgrown bush and rubbish with a rake" aria-label="Open photo: Community clean-up">
-                <img src="assets/img/cleanup-01-800.webp" width="800" height="533" fetchpriority="high" alt="A volunteer clearing overgrown bush and rubbish with a rake">
+                <img src="assets/img/cleanup-01-480.webp" srcset="assets/img/cleanup-01-480.webp 480w, assets/img/cleanup-01-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" fetchpriority="high" decoding="async" alt="A volunteer clearing overgrown bush and rubbish with a rake">
               </button>
               <figcaption>Community clean-up</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/cleanup-06-1600.webp" data-cap="Clearing the road" data-alt="Community members clearing rubbish from a dirt road with rakes" aria-label="Open photo: Clearing the road">
-                <img src="assets/img/cleanup-06-800.webp" width="800" height="533" loading="lazy" alt="Community members clearing rubbish from a dirt road with rakes">
+                <img src="assets/img/cleanup-06-480.webp" srcset="assets/img/cleanup-06-480.webp 480w, assets/img/cleanup-06-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="Community members clearing rubbish from a dirt road with rakes">
               </button>
               <figcaption>Clearing the road</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/cleanup-team-1600.webp" data-cap="Clean-up volunteers" data-alt="Four clean-up volunteers standing with rakes beside a metal fence" aria-label="Open photo: Clean-up volunteers">
-                <img src="assets/img/cleanup-team-800.webp" width="800" height="533" loading="lazy" alt="Four clean-up volunteers standing with rakes beside a metal fence">
+                <img src="assets/img/cleanup-team-480.webp" srcset="assets/img/cleanup-team-480.webp 480w, assets/img/cleanup-team-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="Four clean-up volunteers standing with rakes beside a metal fence">
               </button>
               <figcaption>Clean-up volunteers</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/nursery-seedlings-1600.webp" data-cap="Tree seedlings" data-alt="Rows of young tree seedlings under tall trees" aria-label="Open photo: Tree seedlings">
-                <img src="assets/img/nursery-seedlings-800.webp" width="800" height="1063" loading="lazy" alt="Rows of young tree seedlings under tall trees">
+                <img src="assets/img/nursery-seedlings-480.webp" srcset="assets/img/nursery-seedlings-480.webp 480w, assets/img/nursery-seedlings-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="1063" loading="lazy" decoding="async" alt="Rows of young tree seedlings under tall trees">
               </button>
               <figcaption>Tree seedlings</figcaption>
             </figure>
@@ -281,19 +284,19 @@
           <div class="g-cols">
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/farm-greens-1600.webp" data-cap="Vegetable plots" data-alt="Dense rows of green vegetable plants in a community plot" aria-label="Open photo: Vegetable plots">
-                <img src="assets/img/farm-greens-800.webp" width="800" height="533" loading="lazy" alt="Dense rows of green vegetable plants in a community plot">
+                <img src="assets/img/farm-greens-480.webp" srcset="assets/img/farm-greens-480.webp 480w, assets/img/farm-greens-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="Dense rows of green vegetable plants in a community plot">
               </button>
               <figcaption>Vegetable plots</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/farm-crop-1600.webp" data-cap="Crop farming" data-alt="A healthy leafy crop growing in red soil" aria-label="Open photo: Crop farming">
-                <img src="assets/img/farm-crop-800.webp" width="800" height="533" loading="lazy" alt="A healthy leafy crop growing in red soil">
+                <img src="assets/img/farm-crop-480.webp" srcset="assets/img/farm-crop-480.webp 480w, assets/img/farm-crop-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="A healthy leafy crop growing in red soil">
               </button>
               <figcaption>Crop farming</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/farm-field-1600.webp" data-cap="Tending the field" data-alt="People tending rows of vegetables in a green field" aria-label="Open photo: Tending the field">
-                <img src="assets/img/farm-field-800.webp" width="800" height="533" loading="lazy" alt="People tending rows of vegetables in a green field">
+                <img src="assets/img/farm-field-480.webp" srcset="assets/img/farm-field-480.webp 480w, assets/img/farm-field-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="People tending rows of vegetables in a green field">
               </button>
               <figcaption>Tending the field</figcaption>
             </figure>
@@ -305,43 +308,43 @@
           <div class="g-cols">
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/community-group-1600.webp" data-cap="Community members" data-alt="Community members standing together in front of a school building" aria-label="Open photo: Community members">
-                <img src="assets/img/community-group-800.webp" width="800" height="533" loading="lazy" alt="Community members standing together in front of a school building">
+                <img src="assets/img/community-group-480.webp" srcset="assets/img/community-group-480.webp 480w, assets/img/community-group-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="Community members standing together in front of a school building">
               </button>
               <figcaption>Community members</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/meeting-speaker-01-1600.webp" data-cap="Community meeting" data-alt="A man in a white shirt addressing a seated audience" aria-label="Open photo: Community meeting">
-                <img src="assets/img/meeting-speaker-01-800.webp" width="800" height="533" loading="lazy" alt="A man in a white shirt addressing a seated audience">
+                <img src="assets/img/meeting-speaker-01-480.webp" srcset="assets/img/meeting-speaker-01-480.webp 480w, assets/img/meeting-speaker-01-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="A man in a white shirt addressing a seated audience">
               </button>
               <figcaption>Community meeting</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/meeting-speaker-02-1600.webp" data-cap="Speaking at a meeting" data-alt="A man reading from a sheet of paper while addressing a meeting" aria-label="Open photo: Speaking at a meeting">
-                <img src="assets/img/meeting-speaker-02-800.webp" width="800" height="533" loading="lazy" alt="A man reading from a sheet of paper while addressing a meeting">
+                <img src="assets/img/meeting-speaker-02-480.webp" srcset="assets/img/meeting-speaker-02-480.webp 480w, assets/img/meeting-speaker-02-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="A man reading from a sheet of paper while addressing a meeting">
               </button>
               <figcaption>Speaking at a meeting</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/meeting-speaker-03-1600.webp" data-cap="Community session" data-alt="An FBRO member speaking to a gathering in a classroom" aria-label="Open photo: Community session">
-                <img src="assets/img/meeting-speaker-03-800.webp" width="800" height="533" loading="lazy" alt="An FBRO member speaking to a gathering in a classroom">
+                <img src="assets/img/meeting-speaker-03-480.webp" srcset="assets/img/meeting-speaker-03-480.webp 480w, assets/img/meeting-speaker-03-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="An FBRO member speaking to a gathering in a classroom">
               </button>
               <figcaption>Community session</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/meeting-women-01-1600.webp" data-cap="Listening and learning" data-alt="Women listening attentively during a community session" aria-label="Open photo: Listening and learning">
-                <img src="assets/img/meeting-women-01-800.webp" width="800" height="533" loading="lazy" alt="Women listening attentively during a community session">
+                <img src="assets/img/meeting-women-01-480.webp" srcset="assets/img/meeting-women-01-480.webp 480w, assets/img/meeting-women-01-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="Women listening attentively during a community session">
               </button>
               <figcaption>Listening and learning</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/meeting-women-02-1600.webp" data-cap="Community session" data-alt="Two women seated at a school desk during a community session" aria-label="Open photo: Community session">
-                <img src="assets/img/meeting-women-02-800.webp" width="800" height="533" loading="lazy" alt="Two women seated at a school desk during a community session">
+                <img src="assets/img/meeting-women-02-480.webp" srcset="assets/img/meeting-women-02-480.webp 480w, assets/img/meeting-women-02-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="Two women seated at a school desk during a community session">
               </button>
               <figcaption>Community session</figcaption>
             </figure>
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/meeting-portrait-1600.webp" data-cap="FBRO member" data-alt="An FBRO member in a purple polo shirt speaking to a meeting" aria-label="Open photo: FBRO member">
-                <img src="assets/img/meeting-portrait-800.webp" width="800" height="533" loading="lazy" alt="An FBRO member in a purple polo shirt speaking to a meeting">
+                <img src="assets/img/meeting-portrait-480.webp" srcset="assets/img/meeting-portrait-480.webp 480w, assets/img/meeting-portrait-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="An FBRO member in a purple polo shirt speaking to a meeting">
               </button>
               <figcaption>FBRO member</figcaption>
             </figure>
@@ -353,7 +356,7 @@
           <div class="g-cols">
             <figure class="img-wrap">
               <button class="g-btn" type="button" data-full="assets/img/youth-football-1600.webp" data-cap="Youth football" data-alt="Young people lined up together on a football pitch in the evening light" aria-label="Open photo: Youth football">
-                <img src="assets/img/youth-football-800.webp" width="800" height="600" loading="lazy" alt="Young people lined up together on a football pitch in the evening light">
+                <img src="assets/img/youth-football-480.webp" srcset="assets/img/youth-football-480.webp 480w, assets/img/youth-football-800.webp 800w" sizes="(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw" width="800" height="600" loading="lazy" decoding="async" alt="Young people lined up together on a football pitch in the evening light">
               </button>
               <figcaption>Youth football</figcaption>
             </figure>
@@ -422,6 +425,6 @@
   </div>
 
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>

@@ -43,9 +43,12 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <!-- Preload primary font -->
+  <!-- Preload primary font for instant heading display -->
   <link rel="preload" href="assets/fonts/bricolage-grotesque-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/source-serif-4-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Preload LCP image for programs page -->
+  <link rel="preload" as="image" href="assets/img/youth-football-480.webp"
+    imagesrcset="assets/img/youth-football-480.webp 480w, assets/img/youth-football-800.webp 800w, assets/img/youth-football-1600.webp 1280w"
+    imagesizes="(min-width: 900px) 50vw, 100vw" fetchpriority="high">
 
   <link rel="stylesheet" href="styles.css">
 
@@ -248,49 +251,49 @@
     <section class="section tight">
       <div class="wrap">
         <article class="program-row reveal" id="peacebuilding">
-          <figure class="img-wrap"><img src="assets/img/youth-football-800.webp" srcset="assets/img/youth-football-800.webp 800w, assets/img/youth-football-1600.webp 1280w" sizes="(min-width: 900px) 50vw, 100vw" width="1280" height="960" fetchpriority="high" alt="Young people lined up together on a football pitch in the evening light"></figure>
+          <figure class="img-wrap"><img src="assets/img/youth-football-480.webp" srcset="assets/img/youth-football-480.webp 480w, assets/img/youth-football-800.webp 800w, assets/img/youth-football-1600.webp 1280w" sizes="(min-width: 900px) 50vw, 100vw" width="1280" height="960" fetchpriority="high" decoding="async" alt="Young people lined up together on a football pitch in the evening light"></figure>
           <div>
             <h2>Peacebuilding and social cohesion</h2>
             <p>FBRO brings together refugee communities and host communities in Kakuma Refugee Camp and Kalobeyei Settlement through peace dialogues, community discussions, sports tournaments, and awareness campaigns that foster mutual trust, social cohesion, and peaceful coexistence.</p>
           </div>
         </article>
         <article class="program-row reveal" id="livelihoods">
-          <figure class="img-wrap"><img src="assets/img/farm-field-800.webp" srcset="assets/img/farm-field-800.webp 800w, assets/img/farm-field-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="People tending rows of vegetables in a green field"></figure>
+          <figure class="img-wrap"><img src="assets/img/farm-field-480.webp" srcset="assets/img/farm-field-480.webp 480w, assets/img/farm-field-800.webp 800w, assets/img/farm-field-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" decoding="async" alt="People tending rows of vegetables in a green field"></figure>
           <div>
             <h2>Livelihood support</h2>
             <p>We support vulnerable families, youth, and women across Kakuma through poultry farming, crop and vegetable gardening, and small income-generating activities that boost household income, food security, and self-reliance.</p>
           </div>
         </article>
         <article class="program-row reveal" id="youth">
-          <figure class="img-wrap"><img src="assets/img/meeting-speaker-03-800.webp" srcset="assets/img/meeting-speaker-03-800.webp 800w, assets/img/meeting-speaker-03-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="An FBRO member speaking to a gathering in a classroom"></figure>
+          <figure class="img-wrap"><img src="assets/img/meeting-speaker-03-480.webp" srcset="assets/img/meeting-speaker-03-480.webp 480w, assets/img/meeting-speaker-03-800.webp 800w, assets/img/meeting-speaker-03-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" decoding="async" alt="An FBRO member speaking to a gathering in a classroom"></figure>
           <div>
             <h2>Youth empowerment and skills development</h2>
             <p>FBRO supports refugee youth and host community young people through mentorship, leadership training, vocational skills workshops, and entrepreneurship coaching that unlock economic opportunities and inspire local innovation.</p>
           </div>
         </article>
         <article class="program-row reveal" id="education">
-          <figure class="img-wrap"><img src="assets/img/meeting-women-01-800.webp" srcset="assets/img/meeting-women-01-800.webp 800w, assets/img/meeting-women-01-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Women listening attentively during a community session in a classroom"></figure>
+          <figure class="img-wrap"><img src="assets/img/meeting-women-01-480.webp" srcset="assets/img/meeting-women-01-480.webp 480w, assets/img/meeting-women-01-800.webp 800w, assets/img/meeting-women-01-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" decoding="async" alt="Women listening attentively during a community session in a classroom"></figure>
           <div>
             <h2>Education and community awareness</h2>
             <p>We champion education and continuous learning across Kakuma through academic mentorship, school retention awareness, and community dialogues that emphasize personal growth and the vital role of education in refugee communities.</p>
           </div>
         </article>
         <article class="program-row reveal" id="environment">
-          <figure class="img-wrap"><img src="assets/img/cleanup-06-800.webp" srcset="assets/img/cleanup-06-800.webp 800w, assets/img/cleanup-06-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Community members clearing rubbish from a dirt road with rakes"></figure>
+          <figure class="img-wrap"><img src="assets/img/cleanup-06-480.webp" srcset="assets/img/cleanup-06-480.webp 480w, assets/img/cleanup-06-800.webp 800w, assets/img/cleanup-06-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" decoding="async" alt="Community members clearing rubbish from a dirt road with rakes"></figure>
           <div>
             <h2>Environmental conservation</h2>
             <p>FBRO works with community volunteers in Kakuma and Kalobeyei to protect the arid Turkana environment through tree planting, nursery management, environmental education, and sustainable community waste clean-up campaigns.</p>
           </div>
         </article>
         <article class="program-row reveal" id="health">
-          <figure class="img-wrap"><img src="assets/img/meeting-women-02-800.webp" srcset="assets/img/meeting-women-02-800.webp 800w, assets/img/meeting-women-02-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="Two women seated at a school desk during a community session"></figure>
+          <figure class="img-wrap"><img src="assets/img/meeting-women-02-480.webp" srcset="assets/img/meeting-women-02-480.webp 480w, assets/img/meeting-women-02-800.webp 800w, assets/img/meeting-women-02-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" decoding="async" alt="Two women seated at a school desk during a community session"></figure>
           <div>
             <h2>Community health and wellbeing</h2>
             <p>We deliver grassroots health awareness on hygiene, sanitation, disease prevention, and community wellbeing to help refugee and host community families live healthier, more resilient lives.</p>
           </div>
         </article>
         <article class="program-row reveal" id="culture">
-          <figure class="img-wrap"><img src="assets/img/community-group-800.webp" srcset="assets/img/community-group-800.webp 800w, assets/img/community-group-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" alt="A large group of community members posing together outdoors"></figure>
+          <figure class="img-wrap"><img src="assets/img/community-group-480.webp" srcset="assets/img/community-group-480.webp 480w, assets/img/community-group-800.webp 800w, assets/img/community-group-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1066" loading="lazy" decoding="async" alt="A large group of community members posing together outdoors"></figure>
           <div>
             <h2>Cultural and community activities</h2>
             <p>FBRO promotes positive cultural traditions, unity, and social inclusion through multi-ethnic celebrations and shared sports events that bridge divides and celebrate the rich heritage of communities living in Kakuma.</p>
@@ -364,6 +367,6 @@
   </div>
 
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
