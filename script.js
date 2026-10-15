@@ -452,9 +452,9 @@
                 var msg = encodeURIComponent((contactForm.querySelector('textarea[name="message"]') || {}).value || '');
                 var subject = encodeURIComponent('Website enquiry from ' + (decodeURIComponent(name) || 'website visitor'));
                 var body = encodeURIComponent('Name: ' + decodeURIComponent(name) + '\nEmail: ' + decodeURIComponent(email) + (org ? '\nOrganization: ' + decodeURIComponent(org) : '') + '\n\nMessage:\n' + decodeURIComponent(msg));
-                window.location.href = 'mailto:' + encodeURIComponent('fbrocbo@gmail.com') + '?subject=' + subject + '&body=' + body;
+                window.location.href = 'mailto:' + encodeURIComponent('futurebuildersrefugeeorganizat@gmail.com') + '?subject=' + subject + '&body=' + body;
               } catch (err) {
-                handleError(feedbackContainer, 'Could not send message. Please contact us directly at <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>.');
+                handleError(feedbackContainer, 'Could not send message. Please contact us directly at <a href="mailto:futurebuildersrefugeeorganizat@gmail.com">futurebuildersrefugeeorganizat@gmail.com</a>.');
                 if (!feedbackContainer.parentElement) contactForm.appendChild(feedbackContainer);
               }
             });
@@ -495,9 +495,9 @@
                 var msg = encodeURIComponent((partnershipForm.querySelector('textarea[name="message"]') || {}).value || '');
                 var subject = encodeURIComponent('Partnership inquiry from ' + (decodeURIComponent(name) || 'website visitor') + (org ? ' (' + decodeURIComponent(org) + ')' : ''));
                 var body = encodeURIComponent('Name: ' + decodeURIComponent(name) + '\nEmail: ' + decodeURIComponent(email) + (org ? '\nOrganization: ' + decodeURIComponent(org) : '') + (type ? '\nInquiry Type: ' + decodeURIComponent(type) : '') + '\n\nMessage:\n' + decodeURIComponent(msg));
-                window.location.href = 'mailto:' + encodeURIComponent('fbrocbo@gmail.com') + '?subject=' + subject + '&body=' + body;
+                window.location.href = 'mailto:' + encodeURIComponent('futurebuildersrefugeeorganizat@gmail.com') + '?subject=' + subject + '&body=' + body;
               } catch (err) {
-                handleError(feedbackContainer, 'Could not send inquiry. Please email us directly at <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>.');
+                handleError(feedbackContainer, 'Could not send inquiry. Please email us directly at <a href="mailto:futurebuildersrefugeeorganizat@gmail.com">futurebuildersrefugeeorganizat@gmail.com</a>.');
                 if (!feedbackContainer.parentElement) partnershipForm.appendChild(feedbackContainer);
               }
             });
@@ -532,9 +532,9 @@
               .catch(function () {
                 try {
                   var subEmail = encodeURIComponent(emailInput.value || '');
-                  window.location.href = 'mailto:' + encodeURIComponent('fbrocbo@gmail.com') + '?subject=' + encodeURIComponent('Newsletter Subscription Request') + '&body=' + encodeURIComponent('Please subscribe ' + decodeURIComponent(subEmail) + ' to FBRO community updates from Kakuma.');
+                  window.location.href = 'mailto:' + encodeURIComponent('futurebuildersrefugeeorganizat@gmail.com') + '?subject=' + encodeURIComponent('Newsletter Subscription Request') + '&body=' + encodeURIComponent('Please subscribe ' + decodeURIComponent(subEmail) + ' to FBRO community updates from Kakuma.');
                 } catch (err) {
-                  handleError(feedbackContainer, 'Could not subscribe via form. Please email us at <a href="mailto:fbrocbo@gmail.com">fbrocbo@gmail.com</a>.');
+                  handleError(feedbackContainer, 'Could not subscribe via form. Please email us at <a href="mailto:futurebuildersrefugeeorganizat@gmail.com">futurebuildersrefugeeorganizat@gmail.com</a>.');
                   if (!feedbackContainer.parentElement) form.appendChild(feedbackContainer);
                 }
               });

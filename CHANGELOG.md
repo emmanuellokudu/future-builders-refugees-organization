@@ -2,6 +2,26 @@
 
 All notable changes made during the modernization and accessibility upgrade of the Future Builders Refugee Organization (FBRO) static website.
 
+## [1.2.0] - Verified Domain Migration, Location-Based SEO & Leadership Directory Expansion (2026-10-15)
+
+### Verified Custom Domain Rollout
+- **Domain Migration**: Replaced previous domain references with verified canonical production domain `https://futurebuildersrefugeeorganization.com/` across all 8 HTML files, root `CNAME`, `robots.txt`, `sitemap.xml`, and documentation.
+- **Social Graph & Asset Resolution**: Updated Open Graph (`og:url`, `og:image`), Twitter Cards, canonical links, and Schema.org breadcrumbs to the verified domain.
+- **Discovery Directives**: Refreshed `robots.txt` and `sitemap.xml` with updated `<lastmod>` (2026-10-15) for all 7 indexable pages.
+
+### Location-Based & Activity-Based Search Engine Optimization (SEO)
+- **Geographic Meta Directives**: Added standardized geo tags (`geo.region: KE-43`, `geo.placename: Kakuma, Turkana County, Kenya`, `geo.position: 3.714;34.862`, `ICBM: 3.714, 34.862`) across all pages for enhanced local search and map indexing.
+- **Dual Entity Classification**: Upgraded Schema.org JSON-LD structured data to dual type `["NGO", "NonprofitOrganization"]` with alternate names `["FBRO", "FBRO CBO", "Future Builders Refugee Organization (FBRO)"]`.
+- **Core Activity Taxonomy**: Embedded `knowsAbout` taxonomy covering peacebuilding & social cohesion, sustainable livelihoods, youth empowerment & digital literacy, environmental conservation & tree planting, education & child safeguarding, and community health.
+- **Precise Location Schema**: Integrated geo coordinates (`3.714`, `34.862`) and full postal address (Kakuma 1, Turkana West Sub-County, Turkana County, Kenya) in all organization schemas.
+
+### Verified Contact & Leadership Team Updates
+- **Primary Organization Email**: Standardized official contact email to `futurebuildersrefugeeorganizat@gmail.com` across topbars, footer forms, `script.js` form fallbacks/handlers, privacy policy, and schema markup.
+- **Operations Manager**: Updated Elisha Itongelo's direct contact email to `elishaitongelo8@gmail.com` (`+254 703 957 274`).
+- **Leadership Expansion**: Added Administrator **Issa Mkumu Atanga** (`issamkumu19@gmail.com`, `+254 713 909 469`) to the official leadership directory on `about.html`, `contact.html`, and `get-involved.html`.
+- **Schema Member Integration**: Added all three leadership members (Prosper Undji Etongano, Elisha Itongelo, Issa Mkumu Atanga) to `member` and `founder` structures in Schema.org metadata across all site pages.
+- **UI & Layout Enhancement**: Added `.people-card` and `.team-grid` CSS rules in `styles.css` with responsive 3-column card layouts, click-to-call, click-to-email, and clipboard copy buttons.
+
 ---
 
 ## [1.1.0] - Production Custom Domain & Local SEO Rollout (2026-10-12)
