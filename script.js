@@ -119,7 +119,7 @@
         var saved = localStorage.getItem('theme');
         if (saved === 'dark' || saved === 'light') return saved;
       } catch (e) {}
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return 'light';
     }
 
     function applyTheme(theme, persist) {
@@ -137,7 +137,7 @@
       });
     }
 
-    // Initialize toggle states
+    // Initialize toggle states with light mode as default
     applyTheme(getTheme(), false);
 
     toggles.forEach(function (btn) {
@@ -147,17 +147,6 @@
         applyTheme(target, true);
       });
     });
-
-    // Listen to OS preference changes
-    try {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        var hasOverride = false;
-        try { hasOverride = !!localStorage.getItem('theme'); } catch (err) {}
-        if (!hasOverride) {
-          applyTheme(e.matches ? 'dark' : 'light', false);
-        }
-      });
-    } catch (e) {}
   })();
 
   /* ---  --- */
