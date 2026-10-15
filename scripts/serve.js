@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 
 const PORT = 8080;
 const ROOT = path.resolve(__dirname, '..');
@@ -40,8 +41,29 @@ const server = http.createServer((req, res) => {
 
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME[ext] || 'application/octet-stream';
-  res.writeHead(200, { 'Content-Type': contentType });
-  fs.createReadStream(filePath).pipe(res);
+  const headers = { 'Content-Type': contentType };
+
+  // Cache-Control headers
+  if (ext === '.html') {
+    headers['Cache-Control'] = 'no-cache';
+  } else if (['.webp', '.png', '.jpg', '.svg', '.woff2'].includes(ext)) {
+    headers['Cache-Control'] = 'public, max-age=31536000, immutable';
+  } else {
+    headers['Cache-Control'] = 'public, max-age=3600';
+  }
+
+  // Gzip compression for text-based resources
+  const acceptEncoding = req.headers['accept-encoding'] || '';
+  const isCompressible = ['.html', '.css', '.js', '.json', '.svg', '.webmanifest'].includes(ext);
+
+  if (isCompressible && acceptEncoding.includes('gzip')) {
+    headers['Content-Encoding'] = 'gzip';
+    res.writeHead(200, headers);
+    fs.createReadStream(filePath).pipe(zlib.createGzip()).pipe(res);
+  } else {
+    res.writeHead(200, headers);
+    fs.createReadStream(filePath).pipe(res);
+  }
 });
 
 server.listen(PORT, '127.0.0.1', () => {
