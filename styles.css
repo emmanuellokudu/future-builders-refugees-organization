@@ -138,36 +138,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. DARK THEME OVERRIDES
+   2. DARK THEME OVERRIDES (Applied only when user explicitly selects dark mode)
    -------------------------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #070d19;
-    --bg-alt: #0e172a;
-    --bg-card: #101c34;
-    --surface: #101c34;
-    --surface-hover: #162544;
-    --text: #f0f4fc;
-    --text-muted: #9eb0cc;
-    --heading: #ffffff;
-    --line: rgba(255, 255, 255, 0.13);
-    --line-strong: rgba(255, 255, 255, 0.26);
-    --focus-outline: #4db3f7;
-    --focus-ring: rgba(77, 179, 247, 0.45);
-    --progress-bar: #4db3f7; /* Brand light blue on dark */
-    --header-bg: rgba(10, 18, 35, 0.96);
-    --topbar-bg: #040812;
-    --footer-bg: #050a14;
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-    --card-shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.6);
-    --modal-backdrop: rgba(2, 5, 12, 0.85);
-    --navy: #132448;
-    --navy-2: #0e1b36;
-    --blue: #4db3f7;
-    --green-ui: #44c222;
-  }
-}
-
 :root[data-theme="dark"] {
   --bg: #070d19;
   --bg-alt: #0e172a;
@@ -421,15 +393,19 @@ p {
   flex-shrink: 0;
 }
 
-@media (max-width: 760px) {
-  .topbar .tb-right {
+/* Remove contact info from top bar on mobile phone and mobile sizes */
+@media (max-width: 960px) {
+  .topbar .tb-left {
     display: none;
   }
-  .topbar .tb-left {
-    gap: var(--space-3);
-    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    display: none;
   }
 }
+
 
 /* --------------------------------------------------------------------------
    7. STICKY HEADER & BRAND
@@ -486,13 +462,6 @@ p {
   border-radius: var(--radius-sm);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .brand-logo-frame {
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 3px 6px;
-    border-radius: var(--radius-sm);
-  }
-}
 
 .brand img {
   height: 50px;
@@ -602,10 +571,6 @@ p {
 :root[data-theme="dark"] .theme-icon-sun { display: block; }
 :root[data-theme="dark"] .theme-icon-moon { display: none; }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-icon-sun { display: block; }
-  :root:not([data-theme="light"]) .theme-icon-moon { display: none; }
-}
 
 /* Hamburger toggle */
 .nav-toggle {
@@ -614,12 +579,14 @@ p {
   border: 1.5px solid var(--line-strong);
   color: var(--heading);
   border-radius: var(--radius-md);
-  padding: 0.5rem 0.75rem;
+  padding: 0;
   cursor: pointer;
   align-items: center;
-  gap: var(--space-2);
+  justify-content: center;
   min-height: 44px;
   min-width: 44px;
+  width: 44px;
+  height: 44px;
   transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
@@ -637,6 +604,7 @@ p {
   height: 2px;
   background-color: currentColor;
   position: absolute;
+  left: 0;
   border-radius: 2px;
   transition: transform var(--transition-normal), opacity var(--transition-normal);
 }
@@ -658,7 +626,7 @@ p {
 
 /* Animated Close State */
 .nav-toggle[aria-expanded="true"] .hamburger-inner {
-  transform: rotate(45deg);
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .nav-toggle[aria-expanded="true"] .hamburger-inner::before {
@@ -667,22 +635,25 @@ p {
 }
 
 .nav-toggle[aria-expanded="true"] .hamburger-inner::after {
+  top: 0;
   bottom: 0;
   transform: rotate(-90deg);
 }
 
 .nav-toggle-text {
-  font-family: var(--head);
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  display: none !important;
 }
 
 /* --------------------------------------------------------------------------
    9. MOBILE NAVIGATION PANEL (320px - 960px)
    -------------------------------------------------------------------------- */
 @media (max-width: 960px) {
+  /* Prevent backdrop-filter from creating a containing block that traps position:fixed nav */
+  .site-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .nav-toggle {
     display: inline-flex;
   }
@@ -694,22 +665,30 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
+    height: calc(100vh - var(--header-height));
+    height: calc(100dvh - var(--header-height));
+    max-height: calc(100dvh - var(--header-height));
     background-color: var(--bg);
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding: var(--space-6) var(--space-6) var(--space-10);
-    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6) var(--space-10);
+    gap: var(--space-3);
     border-top: 1px solid var(--line);
     box-shadow: var(--shadow-lg);
     overflow-y: auto;
-    z-index: 490;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    z-index: 600;
     font-size: 1.1rem;
     letter-spacing: 0.02em;
   }
 
   .site-header.scrolled .nav {
     top: 64px;
+    height: calc(100vh - 64px);
+    height: calc(100dvh - 64px);
+    max-height: calc(100dvh - 64px);
   }
 
   .nav.open {
@@ -735,6 +714,17 @@ p {
   .brand-name span {
     display: none;
   }
+}
+
+body.menu-open .site-header {
+  z-index: 950;
+}
+
+body.menu-open .floating-actions {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
 }
 
 @keyframes menuFadeIn {
