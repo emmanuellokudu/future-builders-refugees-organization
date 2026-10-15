@@ -399,14 +399,57 @@
     // Attach to contact, partnership, and newsletter forms and send via EmailJS if configured,
     // otherwise fall back gracefully to mailto. Compatible with static GitHub Pages hosting.
 
+    var ORG_EMAIL = 'futurebuildersrefugeeorganizat@gmail.com';
+    var MAX_MAILTO_LENGTH = 1900;
+
     function handleSuccess(container, message) {
+      if (!container) return;
+      container.classList.remove('is-error');
       container.classList.add('is-success');
+      container.setAttribute('role', 'status');
+      container.setAttribute('aria-live', 'polite');
       container.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>' + message + '</span>';
     }
 
     function handleError(container, message) {
+      if (!container) return;
+      container.classList.remove('is-success');
       container.classList.add('is-error');
+      container.setAttribute('role', 'alert');
+      container.setAttribute('aria-live', 'assertive');
       container.innerHTML = '<span>' + message + '</span>';
+    }
+
+    function ensureFeedbackInDom(form, container) {
+      if (!container.parentElement && form) {
+        if (form.parentElement) {
+          form.insertAdjacentElement('beforebegin', container);
+        } else {
+          form.appendChild(container);
+        }
+      }
+    }
+
+    function sendMailtoFallback(form, feedbackContainer, subject, body, entityName) {
+      var mailtoUrl = 'mailto:' + encodeURIComponent(ORG_EMAIL) + '?subject=' + subject + '&body=' + body;
+      if (mailtoUrl.length > MAX_MAILTO_LENGTH) {
+        handleError(
+          feedbackContainer,
+          'Your ' + entityName + ' exceeds the email link limit for automatic redirection. Please email us directly at <a href="mailto:' + ORG_EMAIL + '">' + ORG_EMAIL + '</a> with your details.'
+        );
+        ensureFeedbackInDom(form, feedbackContainer);
+        return;
+      }
+
+      try {
+        window.location.href = mailtoUrl;
+      } catch (err) {
+        handleError(
+          feedbackContainer,
+          'Could not open your email application. Please email us directly at <a href="mailto:' + ORG_EMAIL + '">' + ORG_EMAIL + '</a>.'
+        );
+        ensureFeedbackInDom(form, feedbackContainer);
+      }
     }
 
     function isHoneypotTriggered(form) {
@@ -429,6 +472,7 @@
         var feedbackContainer = contactForm.parentElement.querySelector('.form-feedback') || document.createElement('div');
         feedbackContainer.className = 'form-feedback';
         feedbackContainer.setAttribute('role', 'status');
+        feedbackContainer.setAttribute('aria-live', 'polite');
 
         var emailInput = contactForm.querySelector('input[type="email"]');
         if (!emailInput || !emailInput.checkValidity()) {
@@ -452,10 +496,10 @@
                 var msg = encodeURIComponent((contactForm.querySelector('textarea[name="message"]') || {}).value || '');
                 var subject = encodeURIComponent('Website enquiry from ' + (decodeURIComponent(name) || 'website visitor'));
                 var body = encodeURIComponent('Name: ' + decodeURIComponent(name) + '\nEmail: ' + decodeURIComponent(email) + (org ? '\nOrganization: ' + decodeURIComponent(org) : '') + '\n\nMessage:\n' + decodeURIComponent(msg));
-                window.location.href = 'mailto:' + encodeURIComponent('futurebuildersrefugeeorganizat@gmail.com') + '?subject=' + subject + '&body=' + body;
+                sendMailtoFallback(contactForm, feedbackContainer, subject, body, 'message');
               } catch (err) {
-                handleError(feedbackContainer, 'Could not send message. Please contact us directly at <a href="mailto:futurebuildersrefugeeorganizat@gmail.com">futurebuildersrefugeeorganizat@gmail.com</a>.');
-                if (!feedbackContainer.parentElement) contactForm.appendChild(feedbackContainer);
+                handleError(feedbackContainer, 'Could not send message. Please contact us directly at <a href="mailto:' + ORG_EMAIL + '">' + ORG_EMAIL + '</a>.');
+                ensureFeedbackInDom(contactForm, feedbackContainer);
               }
             });
         });
@@ -472,6 +516,7 @@
         var feedbackContainer = partnershipForm.parentElement.querySelector('.form-feedback') || document.createElement('div');
         feedbackContainer.className = 'form-feedback';
         feedbackContainer.setAttribute('role', 'status');
+        feedbackContainer.setAttribute('aria-live', 'polite');
 
         var emailInput = partnershipForm.querySelector('input[type="email"]');
         if (!emailInput || !emailInput.checkValidity()) {
@@ -495,10 +540,10 @@
                 var msg = encodeURIComponent((partnershipForm.querySelector('textarea[name="message"]') || {}).value || '');
                 var subject = encodeURIComponent('Partnership inquiry from ' + (decodeURIComponent(name) || 'website visitor') + (org ? ' (' + decodeURIComponent(org) + ')' : ''));
                 var body = encodeURIComponent('Name: ' + decodeURIComponent(name) + '\nEmail: ' + decodeURIComponent(email) + (org ? '\nOrganization: ' + decodeURIComponent(org) : '') + (type ? '\nInquiry Type: ' + decodeURIComponent(type) : '') + '\n\nMessage:\n' + decodeURIComponent(msg));
-                window.location.href = 'mailto:' + encodeURIComponent('futurebuildersrefugeeorganizat@gmail.com') + '?subject=' + subject + '&body=' + body;
+                sendMailtoFallback(partnershipForm, feedbackContainer, subject, body, 'partnership inquiry');
               } catch (err) {
-                handleError(feedbackContainer, 'Could not send inquiry. Please email us directly at <a href="mailto:futurebuildersrefugeeorganizat@gmail.com">futurebuildersrefugeeorganizat@gmail.com</a>.');
-                if (!feedbackContainer.parentElement) partnershipForm.appendChild(feedbackContainer);
+                handleError(feedbackContainer, 'Could not send inquiry. Please email us directly at <a href="mailto:' + ORG_EMAIL + '">' + ORG_EMAIL + '</a>.');
+                ensureFeedbackInDom(partnershipForm, feedbackContainer);
               }
             });
         });
@@ -516,6 +561,7 @@
           var feedbackContainer = form.parentElement.querySelector('.form-feedback') || document.createElement('div');
           feedbackContainer.className = 'form-feedback';
           feedbackContainer.setAttribute('role', 'status');
+          feedbackContainer.setAttribute('aria-live', 'polite');
 
           var emailInput = form.querySelector('input[type="email"]');
           if (!emailInput || !emailInput.checkValidity()) {
@@ -532,10 +578,12 @@
               .catch(function () {
                 try {
                   var subEmail = encodeURIComponent(emailInput.value || '');
-                  window.location.href = 'mailto:' + encodeURIComponent('futurebuildersrefugeeorganizat@gmail.com') + '?subject=' + encodeURIComponent('Newsletter Subscription Request') + '&body=' + encodeURIComponent('Please subscribe ' + decodeURIComponent(subEmail) + ' to FBRO community updates from Kakuma.');
+                  var subject = encodeURIComponent('Newsletter Subscription Request');
+                  var body = encodeURIComponent('Please subscribe ' + decodeURIComponent(subEmail) + ' to FBRO community updates from Kakuma.');
+                  sendMailtoFallback(form, feedbackContainer, subject, body, 'subscription request');
                 } catch (err) {
-                  handleError(feedbackContainer, 'Could not subscribe via form. Please email us at <a href="mailto:futurebuildersrefugeeorganizat@gmail.com">futurebuildersrefugeeorganizat@gmail.com</a>.');
-                  if (!feedbackContainer.parentElement) form.appendChild(feedbackContainer);
+                  handleError(feedbackContainer, 'Could not subscribe via form. Please email us at <a href="mailto:' + ORG_EMAIL + '">' + ORG_EMAIL + '</a>.');
+                  ensureFeedbackInDom(form, feedbackContainer);
                 }
               });
           });
