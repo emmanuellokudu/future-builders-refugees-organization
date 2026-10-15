@@ -1,0 +1,84 @@
+name: Static Site Checks & Quality Assurance
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-progress runs for the same ref if a new push arrives
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-checks:
+    name: Lint, Link & Form Smoke Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # Cache npm dependencies if package-lock.json exists in the future
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
+
+      - name: Verify Core Deployment & Domain Directives
+        run: |
+          echo "Checking CNAME..."
+          test -f CNAME && grep -q "futurebuildersrefugeeorganization.com" CNAME
+          echo "Checking robots.txt..."
+          test -f robots.txt && grep -q "futurebuildersrefugeeorganization.com" robots.txt
+          echo "Checking sitemap.xml..."
+          test -f sitemap.xml && grep -q "futurebuildersrefugeeorganization.com" sitemap.xml
+
+      - name: Run FBRO Form & Link Smoke Test
+        # Executes zero-dependency test: validates syntax, all internal links,
+        # form structures, honeypot inputs, mailto fallbacks, and accessibility attributes.
+        run: node scripts/smoke-test.js
+
+      - name: HTML Structure & Tag Linting (HTMLHint)
+        # Validates HTML tag pairing, unique IDs, doctype, and attr formats.
+        # Run non-destructively; fails on critical syntax errors.
+        run: |
+          npx --yes htmlhint "*.html" \
+            --rules "doctype-first=true,tag-pair=true,spec-char-escape=false,id-unique=true,src-not-empty=true,attr-no-duplication=true"
+
+      - name: Start Local HTTP Server for Live Link Crawling
+        # Starts lightweight local Node server on port 8080
+        run: |
+          node scripts/serve.js &
+          sleep 2
+          curl -I http://127.0.0.1:8080/
+
+      - name: Internal Link & Resource Crawl (Linkinator)
+        # Crawls internal links recursively. Skips external domains (which may rate-limit or fail on CI)
+        # and mailto/tel protocols. Fails if any internal page, image, or stylesheet returns a 404.
+        run: |
+          npx --yes linkinator http://127.0.0.1:8080 \
+            --recurse \
+            --skip "^(https?://(?!127\.0\.0\.1)|mailto:|tel:)" \
+            --concurrency 10
+
+      - name: Optional Lighthouse / Accessibility Audit
+        # Runs non-blocking Lighthouse audit against index and contact pages.
+        # Produces artifact reports; does not hard-fail the build unless exit code is enforced.
+        continue-on-error: true
+        run: |
+          mkdir -p lighthouse-report
+          npx --yes @lhci/cli@0.14.x collect --url="http://127.0.0.1:8080/index.html" --url="http://127.0.0.1:8080/contact.html" --numberOfRuns=1
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
+
+      - name: Upload Test Logs & Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-site-quality-logs
+          path: |
+            .lighthouseci/
+          if-no-files-found: ignore
