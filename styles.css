@@ -757,6 +757,14 @@ body.menu-open .floating-actions {
   transform: translateY(1px);
 }
 
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* Primary / Solid */
 .btn-solid, .btn-primary, .btn-green {
   background-color: var(--green-ui);
@@ -2148,6 +2156,12 @@ html.js .reveal.is-revealed {
   color: #991b1b;
 }
 
+.form-feedback.is-info {
+  background-color: #e0f2fe;
+  border: 1px solid #0284c7;
+  color: #0369a1;
+}
+
 /* Dark theme & dark container overrides */
 [data-theme="dark"] .form-feedback.is-success,
 footer .form-feedback.is-success {
@@ -2160,6 +2174,13 @@ footer .form-feedback.is-success {
 footer .form-feedback.is-error {
   background-color: rgba(220, 38, 38, 0.25);
   border: 1px solid #f87171;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .form-feedback.is-info,
+footer .form-feedback.is-info {
+  background-color: rgba(14, 165, 233, 0.25);
+  border: 1px solid var(--sky);
   color: #ffffff;
 }
 
