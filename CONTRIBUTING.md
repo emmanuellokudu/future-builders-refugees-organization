@@ -67,28 +67,19 @@ Keep messages concise, imperative ("add", "fix", "update"), and descriptive.
 
 ---
 
-## 5. Form Testing & EmailJS
+## 5. Form Testing (Web3Forms & Brevo)
 
 The website includes three interactive forms:
-1. **General Contact Form** on [`contact.html`](contact.html)
-2. **Partnership Proposal Form** on [`get-involved.html`](get-involved.html)
-3. **Newsletter Subscription Form** in page footers
+1. **General Contact Form** on [`contact.html`](contact.html) (Web3Forms)
+2. **Partnership Proposal Form** on [`get-involved.html`](get-involved.html) (Web3Forms)
+3. **Newsletter Subscription Form** in page footers (Brevo)
 
-### Testing Forms Locally
-- By default, EmailJS keys in `CONFIG` in [`script.js`](script.js) are blank.
-- When submitted without EmailJS, the forms automatically test and execute the graceful `mailto:` fallback.
-- **Character limit protection**: If a message or subject exceeds 1,900 characters, the script prevents oversized URL failure and displays a direct email link to `futurebuildersrefugeeorganizat@gmail.com`.
+### Testing Forms
+- Web3Forms handles contact and partnership submissions directly in client-side code via Fetch API with public access key.
+- Brevo manages newsletter subscriptions via its official hosted opt-in subscription form.
 - **Honeypot protection**: Ensure the invisible `input[name="bot-field"]` prevents submission if filled.
-
-### Enabling EmailJS (Optional for Maintainers)
-If you wish to test with EmailJS:
-1. Obtain public keys from your EmailJS dashboard:
-   - `EMAILJS_USER_ID`: Public key / User ID
-   - `EMAILJS_SERVICE_ID`: Service ID (e.g., `service_xxx`)
-   - `EMAILJS_CONTACT_TEMPLATE_ID`: Contact template ID
-   - `EMAILJS_NEWSLETTER_TEMPLATE_ID`: Newsletter template ID
-   - `EMAILJS_PARTNERSHIP_TEMPLATE_ID`: Partnership template ID
-2. **DO NOT commit private credentials or confidential tokens to git.**
+- **Input preservation**: If network submission fails, user input is preserved in the form fields.
+- **DO NOT commit private API secrets or SMTP credentials to git.**
 
 ---
 

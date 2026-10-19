@@ -27,6 +27,22 @@ jobs:
           # Cache npm dependencies if package-lock.json exists in the future
           cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
 
+      # - name: Verify Core Deployment & Domain Directives
+      #   run: |
+      #     echo "Checking CNAME..."
+      #     test -f CNAME && grep -q "futurebuildersrefugeeorganization.com" CNAME
+      #     echo "Checking robots.txt..."
+      #     test -f robots.txt && grep -q "futurebuildersrefugeeorganization.com" robots.txt
+      #     echo "Checking sitemap.xml..."
+      #     test -f sitemap.xml && grep -q "futurebuildersrefugeeorganization.com" sitemap.xml
+
+      # - name: Run FBRO Form & Link Smoke Test
+      #   # Executes zero-dependency test: validates syntax, all internal links,
+      #   # form structures, honeypot inputs, mailto fallbacks, and accessibility attributes.
+      #   run: node scripts/smoke-test.js
+
+
+      
       - name: Verify Core Deployment & Domain Directives
         run: |
           echo "Checking CNAME..."
@@ -36,9 +52,20 @@ jobs:
           echo "Checking sitemap.xml..."
           test -f sitemap.xml && grep -q "futurebuildersrefugeeorganization.com" sitemap.xml
 
+      - name: Debug repository checkout
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Commit:"
+          git rev-parse HEAD
+          echo "CNAME file:"
+          ls -la CNAME
+          echo "Smoke test root:"
+          node -e "const path=require('path'); console.log(path.resolve('scripts','..'))"
+          echo "CNAME tracked by Git:"
+          git ls-files --error-unmatch CNAME
+
       - name: Run FBRO Form & Link Smoke Test
-        # Executes zero-dependency test: validates syntax, all internal links,
-        # form structures, honeypot inputs, mailto fallbacks, and accessibility attributes.
         run: node scripts/smoke-test.js
 
       - name: HTML Structure & Tag Linting (HTMLHint)

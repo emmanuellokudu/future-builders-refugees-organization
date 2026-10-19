@@ -12,7 +12,7 @@ Live Production URL: **[https://futurebuildersrefugeeorganization.com/](https://
 - `gallery.html` (Categorized activity photo gallery with accessible modal lightbox)
 - `get-involved.html` (Partnership inquiry form, volunteer details, and comprehensive FAQ accordion)
 - `contact.html` (Direct leadership contacts, location details, and message form)
-- `privacy.html` (Review-ready privacy policy covering EmailJS and data protection)
+- `privacy.html` (Review-ready privacy policy covering Web3Forms, Brevo, and data protection)
 - `404.html` (Custom error page with popular navigation links)
 
 ## Shared Assets
@@ -37,17 +37,12 @@ var CONFIG = {
   WHATSAPP_NUMBER: '254703957274',
   WHATSAPP_DISPLAY: '+254 703 957 274',
 
-  // EmailJS configuration (fill these with your EmailJS account values)
-  // - EMAILJS_USER_ID: Public User ID / Public Key from EmailJS dashboard (Account > API Keys)
-  // - EMAILJS_SERVICE_ID: Email service ID (e.g. 'service_gmail')
-  // - EMAILJS_CONTACT_TEMPLATE_ID: Template ID for contact form (e.g. 'template_contact')
-  // - EMAILJS_NEWSLETTER_TEMPLATE_ID: Template ID for newsletter subscriptions (e.g. 'template_newsletter')
-  // - EMAILJS_PARTNERSHIP_TEMPLATE_ID: Template ID for partnership inquiries (e.g. 'template_partnership')
-  EMAILJS_USER_ID: '',
-  EMAILJS_SERVICE_ID: '',
-  EMAILJS_CONTACT_TEMPLATE_ID: '',
-  EMAILJS_NEWSLETTER_TEMPLATE_ID: '',
-  EMAILJS_PARTNERSHIP_TEMPLATE_ID: '',
+  // Web3Forms configuration (contact & partnership forms)
+  WEB3FORMS_ACCESS_KEY: 'c8421d87-d76a-496c-bf3e-a60385e70881',
+  WEB3FORMS_ENDPOINT: 'https://api.web3forms.com/submit',
+
+  // Brevo configuration (newsletter subscriptions)
+  BREVO_NEWSLETTER_URL: 'https://0a3fdcfa.sibforms.com/serve/MUIFADJVhckhQbR-QhxlJzhPzoXlGx81-AMSRfgj150SUtSuEMrK_KiYrdAVD7kLg2jTCYRG9aHBFPE_6f287QOmQyUghdHbNpCuAYhSRdUjTk2qll05TWyxtHNVDfRmnu-3SZuMj9RUWPLpdmYgVV_5LCoPMbLX5HccKY0xRifn4b1V2Is4_Wb7yuar0QaSbATM8QxZ-ztwPkNmlA==',
 
   // UTM parameters for outgoing links (lowercase, hyphenated)
   UTM: {
@@ -65,27 +60,25 @@ var CONFIG = {
 };
 ```
 
-### EmailJS Setup & Form Configuration
+### Form & Newsletter Integrations
 
-By default, all EmailJS values in `CONFIG` are left blank, and the website operates with 100% functionality using the accessible `mailto:` fallback.
+1. **Web3Forms Integration (Contact & Partnership Forms)**:
+   - Powered by [Web3Forms](https://web3forms.com/) via client-side Fetch API.
+   - Dispatches submissions asynchronously to the official organizational inboxes (`futurebuildersrefugeeorganizat@gmail.com`).
+   - Includes anti-spam honeypot detection (`bot-field` / `botcheck`), field trimming, email format validation, and campaign attribution (`utm_*` parameters).
+   - Dynamic button loading states prevent duplicate submissions (`disabled` attribute and `aria-busy="true"`).
+   - On confirmed success, form inputs are cleanly reset and a polite status confirmation is announced.
+   - On failure, user inputs are strictly preserved and an accessible alert directs the user to retry or email directly.
 
-To enable direct email delivery via [EmailJS](https://www.emailjs.com/):
+2. **Brevo Newsletter Subscription**:
+   - Manages subscriber lists through [Brevo](https://www.brevo.com/) via the official hosted subscription form.
+   - Validates the visitor's email on the site and safely directs them to the official Brevo form in a new tab to complete double opt-in confirmation.
+   - Provides clear in-page feedback and a fallback direct link without misleading claims of premature subscription success.
 
-1. **Required Configuration Values** in `script.js`:
-   - `EMAILJS_USER_ID`: Public Key / Account User ID (EmailJS Dashboard &rarr; Account &rarr; API Keys)
-   - `EMAILJS_SERVICE_ID`: Service ID linked to your email provider (e.g. `service_gmail`)
-   - `EMAILJS_CONTACT_TEMPLATE_ID`: Template ID for general contact inquiries
-   - `EMAILJS_NEWSLETTER_TEMPLATE_ID`: Template ID for newsletter subscriptions
-   - `EMAILJS_PARTNERSHIP_TEMPLATE_ID`: Template ID for partnership proposals
-
-2. **Security & Credentials**:
+3. **Security & Credentials**:
    - Only public client keys belong in `script.js`.
-   - **Never commit private API keys or personal access tokens.**
-   - All forms include an invisible bot honeypot (`bot-field`) to reject automated spam.
-
-3. **Local Testing & Graceful Fallback**:
-   - If EmailJS keys are blank or if the network request fails, forms automatically fall back to opening the visitor's default email client (`mailto:futurebuildersrefugeeorganizat@gmail.com`) with pre-filled subject and body.
-   - **URL Length Protection**: If an inquiry exceeds 1,900 characters, the script prevents browser mailto failures and displays a clear message directing the user to email directly.
+   - **Never commit private API secrets or SMTP credentials.**
+   - All forms include bot honeypot protection to reject automated spam.
 
 ---
 
