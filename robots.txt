@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://futurebuildersrefugeeorganization.com/sitemap.xml
+Sitemap: https://futurebuildersrefugeeorganization.org/sitemap.xml

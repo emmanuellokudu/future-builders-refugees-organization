@@ -30,11 +30,11 @@ jobs:
       # - name: Verify Core Deployment & Domain Directives
       #   run: |
       #     echo "Checking CNAME..."
-      #     test -f CNAME && grep -q "futurebuildersrefugeeorganization.com" CNAME
+      #     test -f CNAME && grep -q "futurebuildersrefugeeorganization.org" CNAME
       #     echo "Checking robots.txt..."
-      #     test -f robots.txt && grep -q "futurebuildersrefugeeorganization.com" robots.txt
+      #     test -f robots.txt && grep -q "futurebuildersrefugeeorganization.org" robots.txt
       #     echo "Checking sitemap.xml..."
-      #     test -f sitemap.xml && grep -q "futurebuildersrefugeeorganization.com" sitemap.xml
+      #     test -f sitemap.xml && grep -q "futurebuildersrefugeeorganization.org" sitemap.xml
 
       # - name: Run FBRO Form & Link Smoke Test
       #   # Executes zero-dependency test: validates syntax, all internal links,
@@ -46,11 +46,11 @@ jobs:
       - name: Verify Core Deployment & Domain Directives
         run: |
           echo "Checking CNAME..."
-          test -f CNAME && grep -q "futurebuildersrefugeeorganization.com" CNAME
+          test -f CNAME && grep -q "futurebuildersrefugeeorganization.org" CNAME
           echo "Checking robots.txt..."
-          test -f robots.txt && grep -q "futurebuildersrefugeeorganization.com" robots.txt
+          test -f robots.txt && grep -q "futurebuildersrefugeeorganization.org" robots.txt
           echo "Checking sitemap.xml..."
-          test -f sitemap.xml && grep -q "futurebuildersrefugeeorganization.com" sitemap.xml
+          test -f sitemap.xml && grep -q "futurebuildersrefugeeorganization.org" sitemap.xml
 
       - name: Debug repository checkout
         run: |
