@@ -10,7 +10,7 @@ const path = require('path');
 const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
-const EXPECTED_DOMAIN = 'futurebuildersrefugeeorganization.com';
+const EXPECTED_DOMAIN = 'futurebuildersrefugeeorganization.org';
 const ORG_EMAIL = 'futurebuildersrefugeeorganizat@gmail.com';
 
 const HTML_FILES = [
