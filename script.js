@@ -14,7 +14,7 @@
     WHATSAPP_DISPLAY: '+254 703 957 274',
 
     // Web3Forms configuration (contact & partnership forms)
-    WEB3FORMS_ACCESS_KEY: 'c8421d87-d76a-496c-bf3e-a60385e70881',
+    WEB3FORMS_ACCESS_KEY: '89964f50-b837-4782-9682-f50c54bc855c',
     WEB3FORMS_ENDPOINT: 'https://api.web3forms.com/submit',
 
     // Brevo configuration (newsletter subscriptions)
